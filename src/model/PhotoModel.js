@@ -1,1 +1,24 @@
-// Will receive the url that has been created via photo upload widget and construct an img element from that url to later be sent to photo-assistant (which only handles img elements, not img urls).
+export class PhotoModel {
+  #url = ''
+  #image
+
+  constructor(url) {
+    if (!url || typeof url !== 'string') {
+      throw new Error('Valid image url is required')
+    }
+
+    this.#url = url
+
+    this.#constructImageElement()
+  }
+
+  #constructImageElement() {
+    const img = new Image()
+    img.src = this.#url
+    this.#image = img
+  }
+
+  getImageElement() {
+    return this.#image
+  }
+}
