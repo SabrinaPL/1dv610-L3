@@ -1,0 +1,1 @@
+// Will receive the url that has been created via photo upload widget and construct an img element from that url to later be sent to photo-assistant (which only handles img elements, not img urls).

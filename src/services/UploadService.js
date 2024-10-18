@@ -1,0 +1,1 @@
+// Service that interacts with photo uploading widget.
