@@ -1,3 +1,9 @@
+/**
+ * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
+ * 
+ * @version 1.0.0
+ */
+
 // Displays a button for uploading images.
 // Displays added images in grid gallery format.
 import { PhotoAssistantService } from "../../../services/PhotoAssistantService.js"
@@ -11,7 +17,6 @@ template.innerHTML = `
       </div>
 
       <div id="gallery-container">
-        <!-- photo gallery to be appended here, if possible to send an element from the shadow root as argument to photo-assistant lib? -->
       </div>
     </div>
   
@@ -21,6 +26,7 @@ template.innerHTML = `
 
 customElements.define('photo-gallery',
   class extends HTMLElement {
+    #photos = []
     #photoUploadButton
     #uploadServiceInstance
     #photoAssistantServiceInstance
@@ -39,8 +45,12 @@ customElements.define('photo-gallery',
       })
     }
 
-    async #uploadPhotos() {
-      await this.#uploadServiceInstance.uploadPhoto()        
+    async #uploadPhotos () {
+      this.#uploadServiceInstance.uploadPhoto()        
+    }
+
+    #addPhotosToGallery () {
+      this.#photoAssistantServiceInstance.addPhoto()
     }
   }
 )

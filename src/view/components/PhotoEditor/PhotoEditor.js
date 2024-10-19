@@ -1,3 +1,9 @@
+/**
+ * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
+ * 
+ * @version 1.0.0
+ */
+
 // When clicking on an image in the grid gallery, an editing modal should appear.
 
 const template = document.createElement('template')
