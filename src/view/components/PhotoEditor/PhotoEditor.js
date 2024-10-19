@@ -2,7 +2,9 @@
 
 const template = document.createElement('template')
 template.innerHTML = ` 
-    <div>
+    <div class="photo-editor">
+      <div id="photo-editor-container">
+      </div>
     </div>
   
     <style>

@@ -8,17 +8,13 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@bytescale/upload-widget": "^4.27.0",
-    "bcrypt": "^5.1.1",
-    "cors": "^2.8.5",
     "express": "^4.21.1",
-    "helmet": "^8.0.0",
-    "jsonwebtoken": "^9.0.2",
-    "photo-assistant": "^2.0.0",
+    "photo-assistant": "^2.0.1",
     "vite": "^5.4.8"
   },
   "devDependencies": {
