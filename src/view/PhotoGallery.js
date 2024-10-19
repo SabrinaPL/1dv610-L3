@@ -1,1 +1,0 @@
-// Displays added images in grid gallery format.

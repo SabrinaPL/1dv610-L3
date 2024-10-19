@@ -1,13 +1,15 @@
 export class PhotoModel {
   #url = ''
+  #imageDescription = ''
   #image
 
-  constructor(url) {
-    if (!url || typeof url !== 'string') {
-      throw new Error('Valid image url is required')
+  constructor(url, imageDescription) {
+    if (!url || typeof url !== 'string' || !imageDescription || typeof imageDescription!== 'string') {
+      throw new Error('Valid image url and image alt is required')
     }
 
     this.#url = url
+    this.#imageDescription = imageDescription
 
     this.#constructImageElement()
   }
@@ -15,6 +17,7 @@ export class PhotoModel {
   #constructImageElement() {
     const img = new Image()
     img.src = this.#url
+    img.alt = this.#imageDescription
     this.#image = img
   }
 
