@@ -9,7 +9,7 @@ template.innerHTML = `
 
     </style>`
 
-customElements.define('PhotoEditor',
+customElements.define('photo-editor',
   class extends HTMLElement {
     constructor() {
       super()

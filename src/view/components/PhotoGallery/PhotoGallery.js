@@ -4,15 +4,17 @@ import { UploadService } from "../../../services/UploadService.js"
 
 const template = document.createElement('template')
 template.innerHTML = `
-    <div>
-
+    <div class="photo-gallery">
+      <div id="gallery-container">
+        <!-- photo gallery to be appended here, if possible to send an element from the shadow root as argument to photo-assistant lib? -->
+      </div>
     </div>
   
     <style>
 
     </style>`
 
-customElements.define('PhotoGallery',
+customElements.define('photo-gallery',
   class extends HTMLElement {
     constructor() {
       super()
