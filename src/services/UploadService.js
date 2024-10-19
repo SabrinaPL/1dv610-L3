@@ -3,7 +3,6 @@
  * 
  * @version 1.0.0
  */
-// Service that interacts with photo uploading widget.
 export class UploadService {
   #uploadedPhotos = []
   #photoFiles
@@ -13,19 +12,37 @@ export class UploadService {
   }
 
   async #openUploadWidget () {
-    const photoFiles = await Bytescale.UploadWidget.open({
+    this.#photoFiles = await Bytescale.UploadWidget.open({
       apiKey: "free",
-      maxFileCount: 4
+      maxFileCount: 10
     })
 
     this.#addUploadedPhotos()
   }
 
   #addUploadedPhotos () {
+    this.#photoFiles.forEach(photoFile => {
+      const photoUrl = photoFile.fileUrl
+      const photoDescription = photoFile.mimeType
+
+      const photo = {
+        photoUrl,
+        photoDescription
+      }
+
+      this.#uploadedPhotos.push(photo)
+
+      console.log(this.#uploadedPhotos)
+    })
+
     // loop through the photoFiles, extract url + image description, construct new objects and push to uploadedPhotos-array.
   }
 
   getPhotoUrls () {
-    // Return the url + the originalFileName - extension.
+    if (this.#uploadedPhotos.length > 0) {
+      const uploadedPhotos = new Array(this.#uploadedPhotos)
+
+      return uploadedPhotos
+    }
   }
 }
