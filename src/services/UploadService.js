@@ -5,13 +5,13 @@
  */
 export class UploadService {
   #uploadedPhotos = []
-  #photoFiles
+  #photoFiles = []
 
-  uploadPhoto () {
+  uploadPhoto() {
     this.#openUploadWidget()
   }
 
-  async #openUploadWidget () {
+  async #openUploadWidget() {
     this.#photoFiles = await Bytescale.UploadWidget.open({
       apiKey: "free",
       maxFileCount: 10
@@ -20,25 +20,27 @@ export class UploadService {
     this.#addUploadedPhotos()
   }
 
-  #addUploadedPhotos () {
-    this.#photoFiles.forEach(photoFile => {
-      const photoUrl = photoFile.fileUrl
-      const photoDescription = photoFile.mimeType
+  #addUploadedPhotos() {
+    if (this.#photoFiles.length > 0) {
+      this.#photoFiles.forEach(photoFile => {
+        console.log(photoFile)
+  
+        const photoUrl = photoFile.fileUrl
+        const photoDescription = photoFile.originalFile.originalFileName
 
-      const photo = {
-        photoUrl,
-        photoDescription
-      }
+        const photo = {
+          photoUrl,
+          photoDescription
+        }
 
-      this.#uploadedPhotos.push(photo)
+        this.#uploadedPhotos.push(photo)
 
-      console.log(this.#uploadedPhotos)
-    })
-
-    // loop through the photoFiles, extract url + image description, construct new objects and push to uploadedPhotos-array.
+        console.log(this.#uploadedPhotos)
+      })
+    }
   }
 
-  getPhotoUrls () {
+  getPhotoUrls() {
     if (this.#uploadedPhotos.length > 0) {
       const uploadedPhotos = new Array(this.#uploadedPhotos)
 

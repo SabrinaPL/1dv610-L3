@@ -3,4 +3,4 @@
  * 
  * @version 1.0.0
  */
-// Handles chat logic.
+// Handles chat logic. Interacts with ChatgptService api.

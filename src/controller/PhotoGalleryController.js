@@ -3,6 +3,9 @@
  * 
  * @version 1.0.0
  */
-// Instance of photo-assistant?
+import { PhotoAssistantService } from '../services/PhotoAssistantService.js'
+
 // Works as an orchestrating class. 
 // Makes use of upload service, forwards result data to the PhotoAssistant Service etc.
+
+
