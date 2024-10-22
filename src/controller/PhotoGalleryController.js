@@ -12,6 +12,8 @@ export class PhotoGalleryController {
   #uploadServiceInstance
   #photoGalleryElement
   #uploadedPhotosData = []
+  #photoUrl = ''
+  #photoName = ''
   #photos = []
 
   constructor (photoGalleryElement) {
@@ -23,7 +25,9 @@ export class PhotoGalleryController {
     this.#uploadServiceInstance = new UploadService()
 
     window.addEventListener('photosUploaded', () => {
-      this.#addPhotosToGallery()
+      this.#fetchPhotoData()
+      this.#createPhotoFromData()
+      this.#constructPhotoGallery()
     })
   }
 
@@ -35,23 +39,27 @@ export class PhotoGalleryController {
     this.#uploadServiceInstance.uploadPhoto()
   }
 
-  #addPhotosToGallery () {
-    this.#fetchPhotoData()
-    // this.#constructImageElement()
-    // this.#constructPhotoGallery()
-  }
-
   #fetchPhotoData () {
     this.#uploadedPhotosData = this.#uploadServiceInstance.getUploadedPhotosData()
-
-    console.log(this.#uploadedPhotosData)
   }
 
-  #constructImageElement () {
+  // Breaking Clean Code-principles here (nested control statements)!
+  #createPhotoFromData () {
     if (this.#uploadedPhotosData.length > 0) {
-      // extract data for each photo and construct image elements from it
+      for (let i = 0; i < this.#uploadedPhotosData.length; i++) { 
+        this.#uploadedPhotosData.forEach(photoDataObject => {
+        this.#photoUrl = photoDataObject[i].photoUrl
+        this.#photoName = photoDataObject[i].photoName
+
+        const photoModel = new PhotoModel(this.#photoUrl, this.#photoName)
+
+        const photo = photoModel.getConstructedImageElement()
+
+        this.#photos.push(photo)
+      })
     }
   }
+}
 
   #constructPhotoGallery () {
     // this.#photoAssistantServiceInstance.addPhotoToGallery(this.#photo, this.#photoDescription)

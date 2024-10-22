@@ -6,7 +6,7 @@
 export class PhotoModel {
   #url = ''
   #imageDescription = ''
-  #image
+  #constructedImageElement
 
   constructor(url, imageDescription) {
     if (!url || typeof url !== 'string' || !imageDescription || typeof imageDescription!== 'string') {
@@ -21,12 +21,13 @@ export class PhotoModel {
 
   #constructImageElement() {
     const img = new Image()
+
     img.src = this.#url
     img.alt = this.#imageDescription
-    this.#image = img
+    this.#constructedImageElement = img
   }
 
-  getImageElement() {
-    return this.#image
+  getConstructedImageElement() {
+    return this.#constructedImageElement
   }
 }
