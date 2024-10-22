@@ -9,43 +9,63 @@ export class PhotoAssistantService {
   #photoAssistantInstance
   #photo
   #photoGalleryElement
-  #photoDescription = ''
+  #columns
 
   constructor () {
     this.#photoAssistantInstance = new PhotoAssistantOrchestrator()
   }
 
-  addPhotoToGallery (photo, photoDescription, photoGalleryElement) {
+  /**
+   * 
+   * @param {HTMLImageElement} photo
+   * @param {String} photoDescription
+   */
+  addPhotoToGallery (photo, photoDescription) {
+    console.log('in photoassistantservice' + photo)
+    console.log(photoDescription)
+
     this.#validatePhoto(photo, photoDescription)
 
     this.#photo = photo
-    this.#photoDescription = photoDescription
-    this.#photoGalleryElement = photoGalleryElement
 
     this.#addPhoto()
-    this.#displayPhotosInGallery()
   }
 
-  #validatePhoto () {
-    if (typeof photo !== HTMLImageElement || !photo || photoDescription === '' || typeof photoDescription !== 'string') {
+  #validatePhoto (photo, photoDescription) {
+    console.log('in validate photo' + photo)
+    console.log(photoDescription)
+
+    if (!(photo instanceof HTMLImageElement) || !photo || photoDescription === '' || typeof (photoDescription) !== 'string') {
       throw new Error('Valid image element and photo description are required')
     }   
   }
 
   #addPhoto () {
-    this.#photoAssistantInstance.addPhoto(this.#photo, this.#photoDescription)
+    this.#photoAssistantInstance.saveImage(this.#photo)
   }
 
-  #displayPhotosInGallery (columns, galleryElement) {
-    this.#validateGalleryArguments(columns, galleryElement)
+  /**
+   * 
+   * @param {number} columns 
+   * @param {HTMLElement} photoGalleryElement 
+   */
+  displayGallery (columns, photoGalleryElement) {
+    this.#validateGalleryArguments(columns, photoGalleryElement)
 
-    this.#photoAssistantInstance.displayPhotosInGallery(columns, galleryElement)
+    this.#columns = columns
+    this.#photoGalleryElement = photoGalleryElement
+
+    this.#displayPhotosInGallery()
   }
 
   #validateGalleryArguments (columns, galleryElement) {
-    if (!columns || typeof columns !== 'number' || typeof galleryElement !== HTMLElement) {
+    if (!columns || typeof (columns) !== 'number' || !(galleryElement instanceof HTMLElement)) {
       throw new Error('Valid column value and HTML element are required')
     }
+  }
+
+  #displayPhotosInGallery () {
+    this.#photoAssistantInstance.displayPhotosInGallery(this.#columns, this.#photoGalleryElement)
   }
 
   #filterPhotos () {

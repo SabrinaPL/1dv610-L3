@@ -15,11 +15,14 @@ export class PhotoGalleryController {
   #photoUrl = ''
   #photoName = ''
   #photos = []
+  #columns = 3 // Having a hardcoded number of columns is a shortcut which makes the app less dynamic!
 
   constructor (photoGalleryElement) {
-    if (typeof photoGalleryElement !== HTMLElement || !photoGalleryElement) {
-      this.#photoGalleryElement = photoGalleryElement
+    if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement) {
+      throw new Error('Invalid photo gallery element') 
     }
+
+    this.#photoGalleryElement = photoGalleryElement
 
     this.#photoAssistantServiceInstance = new PhotoAssistantService()
     this.#uploadServiceInstance = new UploadService()
@@ -28,6 +31,7 @@ export class PhotoGalleryController {
       this.#fetchPhotoData()
       this.#createPhotoFromData()
       this.#constructPhotoGallery()
+      this.#displayConstructedGallery()
     })
   }
 
@@ -62,6 +66,15 @@ export class PhotoGalleryController {
 }
 
   #constructPhotoGallery () {
-    // this.#photoAssistantServiceInstance.addPhotoToGallery(this.#photo, this.#photoDescription)
+    this.#photos.forEach(photo => {
+      console.log(photo)
+      const photoDescription = photo.alt
+
+      this.#photoAssistantServiceInstance.addPhotoToGallery(photo, photoDescription)
+    })
+  }
+
+  #displayConstructedGallery () {
+    this.#photoAssistantServiceInstance.displayGallery(this.#columns, this.#photoGalleryElement)
   }
 }

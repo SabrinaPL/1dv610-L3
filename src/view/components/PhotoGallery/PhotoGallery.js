@@ -31,7 +31,9 @@ customElements.define('photo-gallery',
       this.shadowRoot.appendChild(template.content.cloneNode(true))
 
       this.#photoUploadButton = this.shadowRoot.getElementById('photo-upload-button')
-      const photoGalleryElement = this.shadowRoot.getElementById('photo-gallery')
+      const photoGalleryElement = this.shadowRoot.getElementById('gallery-container')
+
+      console.log(photoGalleryElement)
 
       this.#photoGalleryControllerInstance = new PhotoGalleryController(photoGalleryElement)
 
