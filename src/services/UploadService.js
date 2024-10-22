@@ -24,7 +24,7 @@ export class UploadService {
     if (this.#photoFiles.length > 0) {
       this.#photoFiles.forEach(photoFile => {
         const photoUrl = photoFile.fileUrl
-        const photoDescription = photoFile.originalFile.originalFileName
+        const photoName = photoFile.originalFile.originalFileName
         const timestamp = photoFile.originalFile.metadata.tags[0]
         const timestampParts = timestamp.split("/")
         const dateTaken = timestampParts[1]
@@ -32,7 +32,7 @@ export class UploadService {
 
         const photoData = {
           photoUrl,
-          photoDescription,
+          photoName,
           dateTaken,
           timeTaken
         }
@@ -42,7 +42,7 @@ export class UploadService {
     }
   }
 
-  getPhotoUrls() {
+  getUploadedPhotosData() {
     if (this.#uploadedPhotosData.length > 0) {
       const uploadedPhotosData = new Array(this.#uploadedPhotosData)
 

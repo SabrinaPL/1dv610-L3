@@ -3,11 +3,7 @@
  * 
  * @version 1.0.0
  */
-
-// Displays a button for uploading images.
-// Displays added images in grid gallery format.
-import { PhotoAssistantService } from "../../../services/PhotoAssistantService.js"
-import { UploadService } from "../../../services/UploadService.js"
+import { PhotoGalleryController } from '../../../controller/PhotoGalleryController.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -26,31 +22,26 @@ template.innerHTML = `
 
 customElements.define('photo-gallery',
   class extends HTMLElement {
-    #photos = []
     #photoUploadButton
-    #uploadServiceInstance
-    #photoAssistantServiceInstance
-
+    #photoGalleryControllerInstance
+  
     constructor() {
       super()
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(template.content.cloneNode(true))
 
       this.#photoUploadButton = this.shadowRoot.getElementById('photo-upload-button')
-      this.#uploadServiceInstance = new UploadService()
-      this.#photoAssistantServiceInstance = new PhotoAssistantService()
+      const photoGalleryElement = this.shadowRoot.getElementById('photo-gallery')
+
+      this.#photoGalleryControllerInstance = new PhotoGalleryController(photoGalleryElement)
 
       this.#photoUploadButton.addEventListener('click', () => {
-        this.#uploadPhotos()
+        this.#addPhotosToGallery()
       })
     }
 
-    async #uploadPhotos () {
-      this.#uploadServiceInstance.uploadPhoto()        
-    }
-
     #addPhotosToGallery () {
-      this.#photoAssistantServiceInstance.addPhoto()
+      this.#photoGalleryControllerInstance.addPhotosToGallery()    
     }
   }
 )
