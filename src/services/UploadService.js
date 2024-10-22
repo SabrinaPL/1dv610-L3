@@ -47,6 +47,8 @@ export class UploadService {
       const uploadedPhotosData = new Array(this.#uploadedPhotosData)
 
       return uploadedPhotosData
+    } else {
+      throw new Error('No photos have been uploaded')
     }
   }
 }

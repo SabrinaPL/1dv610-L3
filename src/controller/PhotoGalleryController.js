@@ -9,7 +9,6 @@ import { UploadService } from '../services/UploadService.js'
 
 export class PhotoGalleryController {
   #photoAssistantServiceInstance
-  #photoModelInstance
   #uploadServiceInstance
   #photoGalleryElement
   #uploadedPhotosData = []
@@ -21,15 +20,17 @@ export class PhotoGalleryController {
     }
 
     this.#photoAssistantServiceInstance = new PhotoAssistantService()
-    this.#photoModelInstance = new PhotoModel()
     this.#uploadServiceInstance = new UploadService()
   }
 
   addPhotosToGallery () {
     this.#uploadPhotos()
-    this.#fetchPhotoData()
-    this.#constructImageElement()
-    this.#constructPhotoGallery()
+
+    // TODO: I need a way to communicate that photos have been uploaded before invoking the fetchPhotoData-method
+
+    // this.#fetchPhotoData()
+    // this.#constructImageElement()
+    // this.#constructPhotoGallery()
   }
 
   #uploadPhotos () {
@@ -52,7 +53,3 @@ export class PhotoGalleryController {
     // this.#photoAssistantServiceInstance.addPhotoToGallery(this.#photo, this.#photoDescription)
   }
 }
-
-
-
-
