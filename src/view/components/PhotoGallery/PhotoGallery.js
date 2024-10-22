@@ -36,12 +36,20 @@ customElements.define('photo-gallery',
       this.#photoGalleryControllerInstance = new PhotoGalleryController(photoGalleryElement)
 
       this.#photoUploadButton.addEventListener('click', () => {
+        this.#uploadPhotos()
+      })
+
+      window.addEventListener('photosUploaded', () => {
         this.#addPhotosToGallery()
       })
     }
 
+    #uploadPhotos () {
+      this.#photoGalleryControllerInstance.uploadPhotos()    
+    }
+
     #addPhotosToGallery () {
-      this.#photoGalleryControllerInstance.addPhotosToGallery()    
+      this.#photoGalleryControllerInstance.addPhotosToGallery()
     }
   }
 )

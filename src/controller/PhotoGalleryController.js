@@ -23,18 +23,18 @@ export class PhotoGalleryController {
     this.#uploadServiceInstance = new UploadService()
   }
 
-  addPhotosToGallery () {
+  uploadPhotos () {
     this.#uploadPhotos()
-
-    // TODO: I need a way to communicate that photos have been uploaded before invoking the fetchPhotoData-method
-
-    // this.#fetchPhotoData()
-    // this.#constructImageElement()
-    // this.#constructPhotoGallery()
   }
 
   #uploadPhotos () {
     this.#uploadServiceInstance.uploadPhoto()
+  }
+
+  addPhotosToGallery () {
+    this.#fetchPhotoData()
+    // this.#constructImageElement()
+    // this.#constructPhotoGallery()
   }
 
   #fetchPhotoData () {
