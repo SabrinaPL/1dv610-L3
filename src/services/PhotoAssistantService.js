@@ -1,4 +1,6 @@
 /**
+ * Service class that is responsible for interaction with the photo-assistant lib for photo filtering, sorting (alphabetically), construction of canvas elements and display of photos in grid gallery format functionality.
+ * 
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
  *
  * @version 1.0.0
@@ -10,6 +12,8 @@ export class PhotoAssistantService {
   #photo
   #photoGalleryElement
   #columns
+  #filterMethod = ''
+  #filterValue = ''
 
   constructor () {
     this.#photoAssistantInstance = new PhotoAssistantOrchestrator()
@@ -70,8 +74,26 @@ export class PhotoAssistantService {
     this.#photoAssistantInstance.sortPhotos()
   }
 
+  addPhotoFilter (filterMethod, filterValue) {
+    if (typeof (filterMethod) !== 'string' || filterMethod === '' || typeof (filterValue !== 'string' || filterValue === '')) {
+      throw new Error('Invalid filter method or filter value')
+    }
+
+    this.#filterMethod = filterMethod
+    this.#filterValue = filterValue
+    
+    this.#addFilter()
+  }
+
+  #addFilter () {
+    this.#photoAssistantInstance.chosenFiltersToAdd(this.#filterMethod, this.#filterValue)  
+  }
+
+  applyPhotoFilters () {
+    this.#filterPhotos()
+  }
+
   #filterPhotos () {
-    this.#photoAssistantInstance.chosenFiltersToAdd()
     this.#photoAssistantInstance.applyChosenFilters()
   }
 }

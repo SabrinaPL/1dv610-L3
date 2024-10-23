@@ -6,6 +6,8 @@
 
 // When clicking on an image in the grid gallery, an editing modal should appear.
 
+import { PhotoEditorController } from '../PhotoEditor/PhotoEditorController.js'
+
 const template = document.createElement('template')
 template.innerHTML = ` 
     <div class="photo-editor">

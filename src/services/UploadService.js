@@ -1,4 +1,6 @@
 /**
+ * Service class that handles interaction with @bytescale upload-widget to enable photo uploading and storage functionality and fetch photo data.
+ * 
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
  *
  * @version 1.0.0

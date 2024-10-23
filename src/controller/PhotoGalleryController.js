@@ -1,4 +1,6 @@
 /**
+ * Controller class that receives user input from the PhotoGallery view class and is responsible for delegating and communicating this data to the model class and service classes and for communicating the result back to the view.
+ * 
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
  *
  * @version 1.0.0
@@ -15,7 +17,7 @@ export class PhotoGalleryController {
   #photoUrl = ''
   #photoName = ''
   #photos = []
-  #columns = 2 // Having a hardcoded number of columns is a shortcut which makes the app less dynamic!
+  #columns = 3 // Having a hardcoded number of columns is a shortcut which makes the app less dynamic!
 
   constructor (photoGalleryElement) {
     if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement) {
