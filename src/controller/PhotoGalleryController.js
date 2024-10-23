@@ -29,7 +29,7 @@ export class PhotoGalleryController {
     this.#photoAssistantServiceInstance = new PhotoAssistantService()
     this.#uploadServiceInstance = new UploadService()
 
-    document.addEventListener('photosUploaded', () => {
+    window.addEventListener('photosUploaded', () => {
       this.#fetchPhotoData()
       this.#createPhotoFromData()
       this.#constructPhotoGallery()

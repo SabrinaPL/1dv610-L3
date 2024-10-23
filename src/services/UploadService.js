@@ -42,7 +42,7 @@ export class UploadService {
         this.#uploadedPhotosData.push(photoData)
 
         const photosUploadedEvent = new CustomEvent('photosUploaded')
-        document.dispatchEvent(photosUploadedEvent)
+        window.dispatchEvent(photosUploadedEvent)
       })
     }
   }

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "test": "standard && node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
-    "vite:build": "vite build"
+    "build": "vite build"
   },
   "keywords": [],
   "author": "Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>",

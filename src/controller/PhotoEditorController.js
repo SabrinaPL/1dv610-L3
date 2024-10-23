@@ -8,13 +8,7 @@
 import { PhotoAssistantService } from '../services/PhotoAssistantService.js'
 
 export class PhotoEditorController {
-  #photoAssistantServiceInstance
+  constructor () {
 
-  constructor (PhotoAssistantServiceInstance) {
-    if (!(PhotoAssistantServiceInstance instanceof PhotoAssistantService) || !PhotoAssistantServiceInstance) {
-      throw new Error('Instance of PhotoAssistantService is required')
-    }
-
-    this.#photoAssistantServiceInstance = PhotoAssistantServiceInstance
   }
 }

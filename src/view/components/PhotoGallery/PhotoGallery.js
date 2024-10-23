@@ -3,6 +3,8 @@
  *
  * @version 1.0.0
  */
+import { PhotoGalleryController } from '../../../controller/PhotoGalleryController.js'
+
 const template = document.createElement('template')
 template.innerHTML = `
     <div class="photo-gallery">
@@ -30,6 +32,7 @@ template.innerHTML = `
 customElements.define('photo-gallery',
   class extends HTMLElement {
     #photoUploadButton
+    #photoGalleryControllerInstance
 
     constructor () {
       super()
@@ -39,13 +42,15 @@ customElements.define('photo-gallery',
       this.#photoUploadButton = this.shadowRoot.getElementById('photo-upload-button')
       const photoGalleryContainer = this.shadowRoot.getElementById('photo-gallery-container')
 
-      this.#photoUploadButton.addEventListener('click', () => {
-        const uploadPhotosEvent = new CustomEvent('uploadPhotos', {
-          detail: photoGalleryContainer
-        })
+      this.#photoGalleryControllerInstance = new PhotoGalleryController(photoGalleryContainer)
 
-      // omit an event for the controllerOrchestrator to listen to, including the photoGalleryContainer as an event detail. This makes the viewindependent from the photoGalleryController, decreases coupling and decreases the risk of multiple instances being created making state management easier - works similarly to the observer pattern.
-      document.dispatchEvent(uploadPhotosEvent)
-    })
+      this.#photoUploadButton.addEventListener('click', () => {
+        this.#uploadPhotos()
+      })
+    }
+
+    #uploadPhotos () {
+      this.#photoGalleryControllerInstance.uploadPhotos()
+    }
   }
-})
+)
