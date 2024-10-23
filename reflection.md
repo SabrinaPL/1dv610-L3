@@ -15,7 +15,7 @@ Det ska vara möjligt att:
 * Ladda upp bilder som displayas i ett grid gallery-format
 * Redigera bilder genom att applicera ett eller fler CSS-filter
 * Spara filtrerade bilder
-* Chatta med en AI fotoassistent som kan ge fotoredigeringstips och rekommendationer
+* Sortera bilder i alfabetisk ordning
 
 #### Icke-funktionella krav
 
@@ -25,7 +25,8 @@ Det ska vara möjligt att:
 * Testa att filtrera en bild med ett filter
 * Testa att filtrera en bild med multipla filter
 * Testa att spara ned filtrerad bild
-* Testa att chatta med fotoassistenten, både genom att skriva i något i chattrutan och genom att skicka en tom chatt
+* Testa att sortera bilder
+* Testa att displaya bilder i ett galleri av olika kolumnbredd
 
 ### Bakgrund och problembeskrivning
 

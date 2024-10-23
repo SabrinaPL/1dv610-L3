@@ -1,6 +1,6 @@
 /**
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
- * 
+ *
  * @version 1.0.0
  */
 import { PhotoAssistantService } from '../services/PhotoAssistantService.js'
@@ -19,7 +19,7 @@ export class PhotoGalleryController {
 
   constructor (photoGalleryElement) {
     if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement) {
-      throw new Error('Invalid photo gallery element') 
+      throw new Error('Invalid photo gallery element')
     }
 
     this.#photoGalleryElement = photoGalleryElement
@@ -31,6 +31,7 @@ export class PhotoGalleryController {
       this.#fetchPhotoData()
       this.#createPhotoFromData()
       this.#constructPhotoGallery()
+      this.#sortPhotosAlphabetically()
       this.#displayConstructedGallery()
     })
   }
@@ -47,31 +48,32 @@ export class PhotoGalleryController {
     this.#uploadedPhotosData = this.#uploadServiceInstance.getUploadedPhotosData()
   }
 
-  // Breaking Clean Code-principles here (nested control statements)!
   #createPhotoFromData () {
     if (this.#uploadedPhotosData.length > 0) {
-      for (let i = 0; i < this.#uploadedPhotosData.length; i++) { 
-        this.#uploadedPhotosData.forEach(photoDataObject => {
-        this.#photoUrl = photoDataObject[i].photoUrl
-        this.#photoName = photoDataObject[i].photoName
-
+      this.#uploadedPhotosData.forEach(photoDataObject => {
+        this.#photoUrl = photoDataObject.photoUrl
+        this.#photoName = photoDataObject.photoName
         const photoModel = new PhotoModel(this.#photoUrl, this.#photoName)
-
         const photo = photoModel.getConstructedImageElement()
-
         this.#photos.push(photo)
       })
     }
   }
-}
 
   #constructPhotoGallery () {
+    console.log('in construct photo gallery' + this.#photos)
+
     this.#photos.forEach(photo => {
-      console.log(photo)
       const photoDescription = photo.alt
 
       this.#photoAssistantServiceInstance.addPhotoToGallery(photo, photoDescription)
+
+      console.log(photo)
     })
+  }
+
+  #sortPhotosAlphabetically () {
+    this.#photoAssistantServiceInstance.sortPhotosAlphabetically()
   }
 
   #displayConstructedGallery () {

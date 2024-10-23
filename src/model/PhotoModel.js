@@ -1,6 +1,6 @@
 /**
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
- * 
+ *
  * @version 1.0.0
  */
 export class PhotoModel {
@@ -8,8 +8,8 @@ export class PhotoModel {
   #imageDescription = ''
   #constructedImageElement
 
-  constructor(url, imageDescription) {
-    if (!url || typeof url !== 'string' || !imageDescription || typeof imageDescription!== 'string') {
+  constructor (url, imageDescription) {
+    if (!url || typeof url !== 'string' || !imageDescription || typeof imageDescription !== 'string') {
       throw new Error('Valid image url and image alt is required')
     }
 
@@ -19,7 +19,7 @@ export class PhotoModel {
     this.#constructImageElement()
   }
 
-  #constructImageElement() {
+  #constructImageElement () {
     const img = new Image()
 
     img.src = this.#url
@@ -27,7 +27,7 @@ export class PhotoModel {
     this.#constructedImageElement = img
   }
 
-  getConstructedImageElement() {
+  getConstructedImageElement () {
     return this.#constructedImageElement
   }
 }

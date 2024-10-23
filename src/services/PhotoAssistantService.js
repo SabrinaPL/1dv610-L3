@@ -1,6 +1,6 @@
 /**
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
- * 
+ *
  * @version 1.0.0
  */
 import { PhotoAssistantOrchestrator } from 'photo-assistant'
@@ -16,14 +16,11 @@ export class PhotoAssistantService {
   }
 
   /**
-   * 
+   *
    * @param {HTMLImageElement} photo
    * @param {String} photoDescription
    */
   addPhotoToGallery (photo, photoDescription) {
-    console.log('in photoassistantservice' + photo)
-    console.log(photoDescription)
-
     this.#validatePhoto(photo, photoDescription)
 
     this.#photo = photo
@@ -37,7 +34,7 @@ export class PhotoAssistantService {
 
     if (!(photo instanceof HTMLImageElement) || !photo || photoDescription === '' || typeof (photoDescription) !== 'string') {
       throw new Error('Valid image element and photo description are required')
-    }   
+    }
   }
 
   #addPhoto () {
@@ -45,9 +42,9 @@ export class PhotoAssistantService {
   }
 
   /**
-   * 
-   * @param {number} columns 
-   * @param {HTMLElement} photoGalleryElement 
+   *
+   * @param {number} columns
+   * @param {HTMLElement} photoGalleryElement
    */
   displayGallery (columns, photoGalleryElement) {
     this.#validateGalleryArguments(columns, photoGalleryElement)
@@ -66,6 +63,14 @@ export class PhotoAssistantService {
 
   #displayPhotosInGallery () {
     this.#photoAssistantInstance.displayPhotosInGallery(this.#columns, this.#photoGalleryElement)
+  }
+
+  sortPhotosAlphabetically () {
+    this.#sortPhotos()
+  }
+
+  #sortPhotos () {
+    this.#photoAssistantInstance.sortPhotos()
   }
 
   #filterPhotos () {

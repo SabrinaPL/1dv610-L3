@@ -1,6 +1,6 @@
 /**
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
- * 
+ *
  * @version 1.0.0
  */
 import { PhotoGalleryController } from '../../../controller/PhotoGalleryController.js'
@@ -9,7 +9,7 @@ const template = document.createElement('template')
 template.innerHTML = `
     <div class="photo-gallery">
       <div id="photo-upload-container">
-        <button id="photo-upload-button">Enter</button>
+        <button id="photo-upload-button">Upload photos</button>
       </div>
 
       <div id="gallery-container">
@@ -24,8 +24,8 @@ customElements.define('photo-gallery',
   class extends HTMLElement {
     #photoUploadButton
     #photoGalleryControllerInstance
-  
-    constructor() {
+
+    constructor () {
       super()
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(template.content.cloneNode(true))
@@ -43,7 +43,7 @@ customElements.define('photo-gallery',
     }
 
     #uploadPhotos () {
-      this.#photoGalleryControllerInstance.uploadPhotos()    
+      this.#photoGalleryControllerInstance.uploadPhotos()
     }
   }
 )

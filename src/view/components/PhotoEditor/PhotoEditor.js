@@ -1,6 +1,6 @@
 /**
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
- * 
+ *
  * @version 1.0.0
  */
 
@@ -19,7 +19,7 @@ template.innerHTML = `
 
 customElements.define('photo-editor',
   class extends HTMLElement {
-    constructor() {
+    constructor () {
       super()
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(template.content.cloneNode(true))

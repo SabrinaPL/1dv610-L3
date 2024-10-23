@@ -1,40 +1,40 @@
 /**
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
- * 
+ *
  * @version 1.0.0
  */
 export class UploadService {
   #uploadedPhotosData = []
   #photoFiles = []
 
-  uploadPhoto() {
+  uploadPhoto () {
     this.#openUploadWidget()
   }
 
-  async #openUploadWidget() {
+  async #openUploadWidget () {
     this.#photoFiles = await Bytescale.UploadWidget.open({
-      apiKey: "free",
+      apiKey: 'public_12a1z9YCw4rDV8kDMUABfihezDwv',
       maxFileCount: 10
     })
 
     this.#addUploadedPhotos()
   }
 
-  #addUploadedPhotos() {
+  #addUploadedPhotos () {
     if (this.#photoFiles.length > 0) {
       this.#photoFiles.forEach(photoFile => {
         const photoUrl = photoFile.fileUrl
         const photoName = photoFile.originalFile.originalFileName
         const timestamp = photoFile.originalFile.metadata.tags[0]
-        const timestampParts = timestamp.split("/")
-        const dateTaken = timestampParts[1]
-        const timeTaken = timestampParts[2]
+        const timestampParts = timestamp.split('/')
+        const dateUploaded = timestampParts[1]
+        const timeUploaded = timestampParts[2]
 
         const photoData = {
           photoUrl,
           photoName,
-          dateTaken,
-          timeTaken
+          dateUploaded,
+          timeUploaded
         }
 
         this.#uploadedPhotosData.push(photoData)
@@ -45,9 +45,9 @@ export class UploadService {
     }
   }
 
-  getUploadedPhotosData() {
+  getUploadedPhotosData () {
     if (this.#uploadedPhotosData.length > 0) {
-      const uploadedPhotosData = new Array(this.#uploadedPhotosData)
+      const uploadedPhotosData = [...this.#uploadedPhotosData]
 
       return uploadedPhotosData
     } else {
