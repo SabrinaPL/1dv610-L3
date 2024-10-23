@@ -15,7 +15,7 @@ export class PhotoGalleryController {
   #photoUrl = ''
   #photoName = ''
   #photos = []
-  #columns = 3 // Having a hardcoded number of columns is a shortcut which makes the app less dynamic!
+  #columns = 2 // Having a hardcoded number of columns is a shortcut which makes the app less dynamic!
 
   constructor (photoGalleryElement) {
     if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement) {
@@ -61,14 +61,10 @@ export class PhotoGalleryController {
   }
 
   #constructPhotoGallery () {
-    console.log('in construct photo gallery' + this.#photos)
-
     this.#photos.forEach(photo => {
       const photoDescription = photo.alt
 
       this.#photoAssistantServiceInstance.addPhotoToGallery(photo, photoDescription)
-
-      console.log(photo)
     })
   }
 

@@ -12,12 +12,21 @@ template.innerHTML = `
         <button id="photo-upload-button">Upload photos</button>
       </div>
 
-      <div id="gallery-container">
+      <div id="photo-gallery-container">
       </div>
     </div>
   
     <style>
+      img {
+        width: 100%;
+      }
 
+      #photo-upload-container,
+      #photo-gallery-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     </style>`
 
 customElements.define('photo-gallery',
@@ -31,11 +40,9 @@ customElements.define('photo-gallery',
       this.shadowRoot.appendChild(template.content.cloneNode(true))
 
       this.#photoUploadButton = this.shadowRoot.getElementById('photo-upload-button')
-      const photoGalleryElement = this.shadowRoot.getElementById('gallery-container')
+      const photoGalleryContainer = this.shadowRoot.getElementById('photo-gallery-container')
 
-      console.log(photoGalleryElement)
-
-      this.#photoGalleryControllerInstance = new PhotoGalleryController(photoGalleryElement)
+      this.#photoGalleryControllerInstance = new PhotoGalleryController(photoGalleryContainer)
 
       this.#photoUploadButton.addEventListener('click', () => {
         this.#uploadPhotos()

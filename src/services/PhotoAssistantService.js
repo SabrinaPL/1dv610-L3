@@ -29,9 +29,6 @@ export class PhotoAssistantService {
   }
 
   #validatePhoto (photo, photoDescription) {
-    console.log('in validate photo' + photo)
-    console.log(photoDescription)
-
     if (!(photo instanceof HTMLImageElement) || !photo || photoDescription === '' || typeof (photoDescription) !== 'string') {
       throw new Error('Valid image element and photo description are required')
     }
