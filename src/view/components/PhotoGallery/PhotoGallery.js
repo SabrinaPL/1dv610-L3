@@ -42,7 +42,10 @@ customElements.define('photo-gallery',
       this.#photoUploadButton = this.shadowRoot.getElementById('photo-upload-button')
       const photoGalleryContainer = this.shadowRoot.getElementById('photo-gallery-container')
 
-      this.#photoGalleryControllerInstance = new PhotoGalleryController(photoGalleryContainer)
+      // columns will be dynamically fetched from user input later, hardcoded now only for testing purposes.
+      const columns = 3
+
+      this.#photoGalleryControllerInstance = new PhotoGalleryController(columns, photoGalleryContainer)
 
       this.#photoUploadButton.addEventListener('click', () => {
         this.#uploadPhotos()

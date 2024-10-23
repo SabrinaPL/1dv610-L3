@@ -8,7 +8,9 @@
 import { PhotoAssistantService } from '../services/PhotoAssistantService.js'
 
 export class PhotoEditorController {
-  constructor () {
+  #photoAssistanServiceInstance
 
+  constructor () {
+    this.#photoAssistanServiceInstance = new PhotoAssistantService()
   }
 }

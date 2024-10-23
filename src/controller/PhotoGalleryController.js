@@ -17,14 +17,15 @@ export class PhotoGalleryController {
   #photoUrl = ''
   #photoName = ''
   #photos = []
-  #columns = 3 // Having a hardcoded number of columns is a shortcut which makes the app less dynamic!
+  #columns
 
-  constructor (photoGalleryElement) {
-    if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement) {
-      throw new Error('Invalid photo gallery element')
+  constructor (columns, photoGalleryElement) {
+    if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement || columns === null || typeof (columns) !== 'number') {
+      throw new Error('Valid column value and photo gallery element are required')
     }
 
     this.#photoGalleryElement = photoGalleryElement
+    this.#columns = columns
 
     this.#photoAssistantServiceInstance = new PhotoAssistantService()
     this.#uploadServiceInstance = new UploadService()
@@ -78,3 +79,4 @@ export class PhotoGalleryController {
     this.#photoAssistantServiceInstance.displayGallery(this.#columns, this.#photoGalleryElement)
   }
 }
+
