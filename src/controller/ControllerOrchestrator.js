@@ -1,4 +1,10 @@
-// Will be responsible for delegating to the correct controller class, create an instance of the services and model and dependency inject those instances to the controller classes (to ensure that a single instance is created).
+/**
+ * Controller class responsible for delegating tasks to the correct controller class, create an instance of the services and dependency inject those instances to the controller classes (to avoid multiple instantiation of multiple instances).
+ * 
+ * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
+ *
+ * @version 1.0.0
+ */
 import { PhotoGalleryController } from './PhotoGalleryController.js'
 import { PhotoEditorController } from './PhotoEditorController'
 import { PhotoAssistantService } from '../services/PhotoAssistantService'
@@ -8,6 +14,7 @@ export class ControllerOrchestrator {
   #photoAssistantServiceInstance
   #uploadServiceInstance
   #photoGalleryControllerInstance
+  #photoEditorControllerInstance
 
   constructor () {
     // Control statements to avoid multiple instantiations.
@@ -18,13 +25,25 @@ export class ControllerOrchestrator {
     if (!this.#uploadServiceInstance) {
       this.#uploadServiceInstance = new UploadService()   
     }
+
+    if (!this.#photoEditorControllerInstance) {
+      this.#photoEditorControllerInstance = new PhotoEditorController(this.#photoAssistantServiceInstance)
+    }
   }
 
   constructPhotoGallery (columns, photoGalleryElement) {
+    if (typeof (columns) !== 'number' || !columns || !(photoGalleryElement instanceof HTMLElement)) {
+      throw new Error('Valid column value and photo gallery element are required')
+    }
+
     this.#photoGalleryControllerInstance = new PhotoGalleryController(columns, photoGalleryElement, this.#photoAssistantServiceInstance, this.#uploadServiceInstance)
   }
 
   uploadPhotos () {
     this.#photoGalleryControllerInstance.uploadPhotos()
+  }
+
+  addFilters () {
+    // this.#photoEditorControllerInstance
   }
 }

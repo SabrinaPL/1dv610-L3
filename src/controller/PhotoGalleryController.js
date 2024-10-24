@@ -6,6 +6,8 @@
  * @version 1.0.0
  */
 import { PhotoModel } from '../model/PhotoModel.js'
+import { PhotoAssistantService } from '../services/PhotoAssistantService.js'
+import { UploadService } from '../services/UploadService.js'
 
 export class PhotoGalleryController {
   #photoAssistantServiceInstance
@@ -17,17 +19,17 @@ export class PhotoGalleryController {
   #photos = []
   #columns
 
-  // Here I'm breaking a rule of clean code in having too many arguments by adding two extra arguments (for dependency injection)!
+  // Here I'm breaking a function rule of clean code in having too many arguments (but breaking it on purpose, for dependency injection). Create a separate function for handling columns and photoGalleryElement?
   constructor (columns, photoGalleryElement, photoAssistantServiceInstance, uploadServiceInstance) {
     if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement || columns === null || typeof (columns) !== 'number') {
       throw new Error('Valid column value and photo gallery element are required')
     }
 
-    if (!this.#photoAssistantServiceInstance) {
+    if (!this.#photoAssistantServiceInstance && (photoAssistantServiceInstance instanceof PhotoAssistantService)) {
       this.#photoAssistantServiceInstance = photoAssistantServiceInstance
     }
 
-    if (!this.#uploadServiceInstance) {
+    if (!this.#uploadServiceInstance && (uploadServiceInstance instanceof UploadService)) {
       this.#uploadServiceInstance = uploadServiceInstance
     }
 
@@ -60,8 +62,10 @@ export class PhotoGalleryController {
       this.#uploadedPhotosData.forEach(photoDataObject => {
         this.#photoUrl = photoDataObject.photoUrl
         this.#photoName = photoDataObject.photoName
+
         const photoModel = new PhotoModel(this.#photoUrl, this.#photoName)
         const photo = photoModel.getConstructedImageElement()
+
         this.#photos.push(photo)
       })
     }
