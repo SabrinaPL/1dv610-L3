@@ -52,6 +52,11 @@ customElements.define('photo-gallery',
       this.#photoUploadButton.addEventListener('click', () => {
         this.#uploadPhotos()
       })
+
+      this.addEventListener('click', (event) => {
+        console.log('in event listener')
+        console.log(event.target)
+      })
     }
 
     #uploadPhotos () {

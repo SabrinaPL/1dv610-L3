@@ -6,8 +6,6 @@
  * @version 1.0.0
  */
 import { PhotoModel } from '../model/PhotoModel.js'
-import { PhotoAssistantService } from '../services/PhotoAssistantService.js'
-import { UploadService } from '../services/UploadService.js'
 
 export class PhotoGalleryController {
   #photoAssistantServiceInstance
@@ -19,30 +17,31 @@ export class PhotoGalleryController {
   #photos = []
   #columns
 
-  // Here I'm breaking a function rule of clean code in having too many arguments (but breaking it on purpose, for dependency injection). Create a separate function for handling columns and photoGalleryElement?
-  constructor (columns, photoGalleryElement, photoAssistantServiceInstance, uploadServiceInstance) {
-    if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement || columns === null || typeof (columns) !== 'number') {
-      throw new Error('Valid column value and photo gallery element are required')
-    }
-
-    if (!this.#photoAssistantServiceInstance && (photoAssistantServiceInstance instanceof PhotoAssistantService)) {
+  constructor (photoAssistantServiceInstance, uploadServiceInstance) {
+    if (!this.#photoAssistantServiceInstance) {
       this.#photoAssistantServiceInstance = photoAssistantServiceInstance
     }
 
-    if (!this.#uploadServiceInstance && (uploadServiceInstance instanceof UploadService)) {
+    if (!this.#uploadServiceInstance) {
       this.#uploadServiceInstance = uploadServiceInstance
     }
-
-    this.#photoGalleryElement = photoGalleryElement
-    this.#columns = columns
 
     window.addEventListener('photosUploaded', () => {
       this.#fetchPhotoData()
       this.#createPhotoFromData()
-      this.#constructPhotoGallery()
+      this.#addPhotosToGallery()
       this.#sortPhotosAlphabetically()
       this.#displayConstructedGallery()
     })
+  }
+
+  setupPhotoGallery (columns, photoGalleryElement) {
+    if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement || columns === null || typeof (columns) !== 'number') {
+      throw new Error('Valid column value and photo gallery element are required')
+    }
+
+    this.#photoGalleryElement = photoGalleryElement
+    this.#columns = columns
   }
 
   uploadPhotos () {
@@ -71,7 +70,7 @@ export class PhotoGalleryController {
     }
   }
 
-  #constructPhotoGallery () {
+  #addPhotosToGallery () {
     this.#photos.forEach(photo => {
       const photoDescription = photo.alt
 

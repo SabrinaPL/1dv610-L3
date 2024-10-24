@@ -1,4 +1,4 @@
-# Reflektioner kring refaktorering av L2 & L3
+# Reflektioner kring refaktorering av L2 & kring L3 utifr책n Clean Code
 
 ## L3-beskrivning och reflektioner
 
@@ -42,9 +42,9 @@ Instagram 채r en liknande app d채r anv채ndare kan ladda upp och l채gga filter p�
 
 ### Teknik
 
-JavaScript & Express.
+Vanilla JavaScript, HTML & CSS.
 
-## Reflektioner kring refaktorering av L2
+## Reflektioner utifr책n kapitlen i Clean Code
 
 ### Kapitel 2
 

@@ -36,14 +36,15 @@ export class ControllerOrchestrator {
       throw new Error('Valid column value and photo gallery element are required')
     }
 
-    this.#photoGalleryControllerInstance = new PhotoGalleryController(columns, photoGalleryElement, this.#photoAssistantServiceInstance, this.#uploadServiceInstance)
+    this.#photoGalleryControllerInstance = new PhotoGalleryController(this.#photoAssistantServiceInstance, this.#uploadServiceInstance)
+    this.#photoGalleryControllerInstance.setupPhotoGallery(columns, photoGalleryElement)
   }
 
   uploadPhotos () {
     this.#photoGalleryControllerInstance.uploadPhotos()
   }
 
-  addFilters () {
+  addFilters (photo) {
     // this.#photoEditorControllerInstance
   }
 }
