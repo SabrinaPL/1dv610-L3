@@ -3,7 +3,7 @@
  *
  * @version 1.0.0
  */
-import { PhotoGalleryController } from '../../../controller/PhotoGalleryController.js'
+import { ControllerOrchestrator } from '../../../controller/ControllerOrchestrator.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -32,12 +32,14 @@ template.innerHTML = `
 customElements.define('photo-gallery',
   class extends HTMLElement {
     #photoUploadButton
-    #photoGalleryControllerInstance
+    #controllerOrchestrator
 
     constructor () {
       super()
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(template.content.cloneNode(true))
+
+      this.#controllerOrchestrator = new ControllerOrchestrator()
 
       this.#photoUploadButton = this.shadowRoot.getElementById('photo-upload-button')
       const photoGalleryContainer = this.shadowRoot.getElementById('photo-gallery-container')
@@ -45,7 +47,7 @@ customElements.define('photo-gallery',
       // columns will be dynamically fetched from user input later, hardcoded now only for testing purposes.
       const columns = 3
 
-      this.#photoGalleryControllerInstance = new PhotoGalleryController(columns, photoGalleryContainer)
+      this.#controllerOrchestrator.constructPhotoGallery(columns, photoGalleryContainer)
 
       this.#photoUploadButton.addEventListener('click', () => {
         this.#uploadPhotos()
@@ -53,7 +55,7 @@ customElements.define('photo-gallery',
     }
 
     #uploadPhotos () {
-      this.#photoGalleryControllerInstance.uploadPhotos()
+      this.#controllerOrchestrator.uploadPhotos()
     }
   }
 )

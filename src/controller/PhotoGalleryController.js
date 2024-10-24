@@ -5,9 +5,7 @@
  *
  * @version 1.0.0
  */
-import { PhotoAssistantService } from '../services/PhotoAssistantService.js'
 import { PhotoModel } from '../model/PhotoModel.js'
-import { UploadService } from '../services/UploadService.js'
 
 export class PhotoGalleryController {
   #photoAssistantServiceInstance
@@ -19,16 +17,22 @@ export class PhotoGalleryController {
   #photos = []
   #columns
 
-  constructor (columns, photoGalleryElement) {
+  // Here I'm breaking a rule of clean code in having too many arguments by adding two extra arguments (for dependency injection)!
+  constructor (columns, photoGalleryElement, photoAssistantServiceInstance, uploadServiceInstance) {
     if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement || columns === null || typeof (columns) !== 'number') {
       throw new Error('Valid column value and photo gallery element are required')
     }
 
+    if (!this.#photoAssistantServiceInstance) {
+      this.#photoAssistantServiceInstance = photoAssistantServiceInstance
+    }
+
+    if (!this.#uploadServiceInstance) {
+      this.#uploadServiceInstance = uploadServiceInstance
+    }
+
     this.#photoGalleryElement = photoGalleryElement
     this.#columns = columns
-
-    this.#photoAssistantServiceInstance = new PhotoAssistantService()
-    this.#uploadServiceInstance = new UploadService()
 
     window.addEventListener('photosUploaded', () => {
       this.#fetchPhotoData()
