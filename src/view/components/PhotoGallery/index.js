@@ -1,1 +1,0 @@
-import './PhotoGallery.js'

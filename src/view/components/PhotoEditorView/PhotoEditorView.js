@@ -7,7 +7,7 @@ import { ControllerOrchestrator } from '../../../controller/ControllerOrchestrat
 
 const template = document.createElement('template')
 template.innerHTML = `
-    <div class="photo-editor display-transition">
+    <div class="photo-editor">
       <div id="photo-editor-container">
         <div id="choice-menu-container">
           <form id="filter-image-form">
@@ -36,8 +36,8 @@ template.innerHTML = `
 
             <button type="submit" id="displayFilteredImageBtn">Display</button>
 
-          <div id="canvas-container">
-            <!-- Filtered photo to be appended here --> 
+          <div id="photo-container">
+            <!-- Photo to be appended here --> 
           </div>
         </form>
       </div>
@@ -49,7 +49,7 @@ template.innerHTML = `
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #4F5D75;
+        background-color: white;
         margin-top: 5%;
         margin-left: 10%;
         margin-bottom: 5%;
@@ -64,8 +64,12 @@ template.innerHTML = `
         margin-right: 5%;
       }
 
+      .photo-editor {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+
       .hide-transition {
-        transition: opacity 0.5s ease;
         opacity: 0;
         pointer-events: none;
       }
@@ -76,21 +80,45 @@ template.innerHTML = `
       }
     </style>`
 
-customElements.define('photo-editor',
-  class extends HTMLElement {
+  class PhotoEditorView extends HTMLElement {
+    #photoEditorModal
+    #photoContainer
+
     constructor() {
       super()
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(template.content.cloneNode(true))
 
-      const photoEditorModal = this.shadowRoot.querySelector('.photo-editor')
+      this.#photoEditorModal = this.shadowRoot.querySelector('.photo-editor')
+
+      this.#photoContainer = this.shadowRoot.getElementById('photo-container')
       const exitButton = this.shadowRoot.getElementById('exit-button-container')
 
       exitButton.addEventListener('click', (event) => {
         event.preventDefault()
 
-        photoEditorModal.classList.add('hide-transition')
-        photoEditorModal.classList.remove('display-transition')
+        this.#photoEditorModal.classList.add('hide-transition')
+        this.#photoEditorModal.classList.remove('display-transition')
       })
     }
-  })
+
+    displayPhotoEditor (photo) {
+      if (!photo || !(photo instanceof HTMLImageElement)) {
+        throw new Error('Valid photo is required')
+      }
+
+      this.#photoEditorModal.classList.add('display-transition')
+      this.#photoEditorModal.classList.remove('hide-transition')
+
+      console.log('appending photo to: ', this.#photoContainer)
+      this.#photoContainer.appendChild(photo)
+    }
+  }
+
+  customElements.define('photo-editor-view', PhotoEditorView)
+
+  export { PhotoEditorView }
+
+
+
+  

@@ -5,8 +5,11 @@
  *
  * @version 1.0.0
  */
+import { PhotoEditorView } from '../view/components/PhotoEditorView/PhotoEditorView.js'
+
 export class PhotoEditorController {
   #photoAssistantServiceInstance
+  #photoEditorViewInstance
   #filterMethod
   #filterValue
   #photoToBeFiltered
@@ -16,6 +19,25 @@ export class PhotoEditorController {
     if (!this.#photoAssistantServiceInstance) {
       this.#photoAssistantServiceInstance = photoAssistantServiceInstance
     }
+
+    this.#photoEditorViewInstance = new PhotoEditorView()
+  }
+
+  addPhotoToBeFiltered (photo) {
+    if (!photo || !(photo instanceof HTMLImageElement)) {
+      throw new Error('Valid photo is required')
+    }
+
+    this.#photoToBeFiltered = photo
+    this.#displayPhotoToBeFiltered()
+  }
+
+  #displayPhotoToBeFiltered () {
+    this.#photoEditorViewInstance.displayPhotoEditor(this.#photoToBeFiltered)
+  }
+
+  #displayFilteredPhoto () {
+
   }
 
   addFilter (filterMethod, filterValue) {

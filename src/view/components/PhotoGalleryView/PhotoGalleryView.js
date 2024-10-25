@@ -29,7 +29,7 @@ template.innerHTML = `
       }
     </style>`
 
-customElements.define('photo-gallery',
+customElements.define('photo-gallery-view',
   class extends HTMLElement {
     #photoUploadButton
     #controllerOrchestrator
@@ -53,14 +53,19 @@ customElements.define('photo-gallery',
         this.#uploadPhotos()
       })
 
-      this.addEventListener('click', (event) => {
-        console.log('in event listener')
-        console.log(event.target)
-      })
-    }
+      window.addEventListener('photosUploaded', async () => {
+        const imageElements = this.shadowRoot.querySelectorAll('img')
 
-    #uploadPhotos () {
-      this.#controllerOrchestrator.uploadPhotos()
-    }
+        imageElements.forEach(imageElement => {
+          imageElement.addEventListener('click', () => {
+            this.#controllerOrchestrator.editPhoto(imageElement)
+        })
+      })
+    })
   }
-)
+
+  #uploadPhotos () {
+    this.#controllerOrchestrator.uploadPhotos()
+  }
+})
+

@@ -1,2 +1,2 @@
-import './view/components/PhotoEditor/index.js'
-import './view/components/PhotoGallery/index.js'
+import './view/components/PhotoEditorView/index.js'
+import './view/components/PhotoGalleryView/index.js'
