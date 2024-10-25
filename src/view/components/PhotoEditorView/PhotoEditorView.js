@@ -5,7 +5,7 @@
  */
 const template = document.createElement('template')
 template.innerHTML = `
-    <div id="photo-editor-modal">
+    <div id="photo-editor-modal" class="hide-transition">
       <div id="photo-editor-container">
         <div id="choice-menu-container">
           <form id="filter-image-form">
@@ -32,15 +32,21 @@ template.innerHTML = `
               <label for="filterValue">Add filter value:</label>
               <input type="text" name="filterValue" id="filterValue"> % (px for blur)<br><br>
 
-            <button type="submit" id="displayFilteredImageBtn">Display</button>
-        </form>
-        <div id="photo-container">
+            <div id="photo-container">
             <!-- Photo to be appended here --> 
-        </div>
+            </div><br><br>
+
+            <button type="submit" id="displayFilteredImageBtn">Edit</button>
+        </form>
       </div>
     </div>
   
     <style>
+      body {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+
       #photo-editor-container,
       #choice-menu-container {
         display: flex;
@@ -94,6 +100,8 @@ template.innerHTML = `
     #photoEditorModal
     #photoContainer
     #controllerOrchestratorInstance
+    #photoToBeEdited
+    #editedPhoto
 
     constructor(controllerOrchestratorInstance) {
       super()
@@ -107,6 +115,7 @@ template.innerHTML = `
       this.#photoEditorModal = this.shadowRoot.getElementById('photo-editor-modal')
       this.#photoContainer = this.shadowRoot.getElementById('photo-container')
       const exitButton = this.shadowRoot.getElementById('exit-button')
+      const editForm = this.shadowRoot.getElementById('filter-image-form')
 
       exitButton.addEventListener('click', (event) => {
         event.preventDefault()
@@ -114,6 +123,17 @@ template.innerHTML = `
         console.log('hiding modal', this.#photoEditorModal.classList)
         this.#hideModal()
         console.log('modal hidden', this.#photoEditorModal.classList)
+      })
+
+      editForm.addEventListener('submit', (event) => {
+        event.preventDefault()
+
+        const filterMethod = this.shadowRoot.querySelector('input[name="filter"]:checked').value
+        const filterValue = this.shadowRoot.getElementById('filterValue').value
+
+        this.#controllerOrchestratorInstance.addFilter(filterMethod, filterValue)
+        this.#controllerOrchestratorInstance.applyFilter()
+
       })
     }
 
@@ -125,24 +145,22 @@ template.innerHTML = `
     }
 
     displayPhotoEditorModal (photo) {
-      console.log('Is editor in DOM:', document.body.contains(this));
-
-      this.#displayPhotoEditor(photo)
-    }
-
-    #displayPhotoEditor (photo) {
       if (!photo || !(photo instanceof HTMLImageElement)) {
         throw new Error('Valid photo is required')
       }
 
+      this.#photoToBeEdited = photo
+
+      this.#displayPhotoEditor()
+    }
+
+    #displayPhotoEditor () {
       this.#displayModal()
 
-      this.#photoContainer.appendChild(photo)
+      this.#photoContainer.appendChild(this.#photoToBeEdited)
     }
 
     #displayModal () {
-      console.log('displaying modal')
-
       this.#photoEditorModal.classList.remove('hide-transition')
       this.#photoEditorModal.classList.add('display-transition')
     }

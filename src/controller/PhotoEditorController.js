@@ -14,14 +14,8 @@ export class PhotoEditorController {
   #filteredPhoto
 
   constructor (photoAssistantServiceInstance, photoEditorViewInstance) {
-    if (!this.#photoAssistantServiceInstance) {
-      this.#photoAssistantServiceInstance = photoAssistantServiceInstance
-    }
-
-    if (!this.#photoEditorViewInstance) {
-      console.log('photoEditorViewInstance', photoEditorViewInstance)
-      this.#photoEditorViewInstance = photoEditorViewInstance
-    }
+    this.#photoAssistantServiceInstance = photoAssistantServiceInstance
+    this.#photoEditorViewInstance = photoEditorViewInstance
   }
 
   addPhotoToBeFiltered (photo) {
@@ -54,6 +48,8 @@ export class PhotoEditorController {
   }
 
   #addPhotoFilter () {
+    console.log(this.#filterMethod, this.#filterValue)
+
     this.#photoAssistantServiceInstance.addPhotoFilter(this.#filterMethod, this.#filterValue)
   }
 

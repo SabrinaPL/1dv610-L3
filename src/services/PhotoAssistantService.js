@@ -75,7 +75,7 @@ export class PhotoAssistantService {
   }
 
   addPhotoFilter (filterMethod, filterValue) {
-    if (typeof (filterMethod) !== 'string' || filterMethod === '' || typeof (filterValue !== 'string' || filterValue === '')) {
+    if (typeof (filterMethod) !== 'string' || filterMethod === '' || typeof (filterValue) !== 'string' || filterValue === '') {
       throw new Error('Invalid filter method or filter value')
     }
 
@@ -86,6 +86,10 @@ export class PhotoAssistantService {
   }
 
   #addFilter () {
+
+    console.log(typeof this.#filterMethod)
+    console.log(typeof this.#filterValue)
+
     this.#photoAssistantInstance.chosenFiltersToAdd(this.#filterMethod, this.#filterValue)  
   }
 

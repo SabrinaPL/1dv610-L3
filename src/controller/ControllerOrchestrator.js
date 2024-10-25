@@ -44,4 +44,12 @@ export class ControllerOrchestrator {
   editPhoto (photo) {
    this.#photoEditorControllerInstance.addPhotoToBeFiltered(photo)
   }
+
+  addFilter (filterMethod, filterValue) {
+    this.#photoEditorControllerInstance.addFilter(filterMethod, filterValue)
+  }
+
+  applyFilter () {
+    this.#photoEditorControllerInstance.applyFilter()
+  }
 }
