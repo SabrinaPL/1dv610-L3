@@ -32,6 +32,11 @@ export class PhotoAssistantService {
     this.#addPhoto()
   }
 
+  /**
+   * 
+   * @param {HTMLImageElement} photo 
+   * @param {string} photoDescription 
+   */
   #validatePhoto (photo, photoDescription) {
     if (!(photo instanceof HTMLImageElement) || !photo || photoDescription === '' || typeof (photoDescription) !== 'string') {
       throw new Error('Valid image element and photo description are required')
@@ -56,6 +61,11 @@ export class PhotoAssistantService {
     this.#displayPhotosInGallery()
   }
 
+  /**
+   * 
+   * @param {number} columns 
+   * @param {HTMLElement} galleryElement 
+   */
   #validateGalleryArguments (columns, galleryElement) {
     if (!columns || typeof (columns) !== 'number' || !(galleryElement instanceof HTMLElement)) {
       throw new Error('Valid column value and HTML element are required')
@@ -74,6 +84,11 @@ export class PhotoAssistantService {
     this.#photoAssistantInstance.sortPhotos()
   }
 
+  /**
+   * 
+   * @param {string} filterMethod 
+   * @param {string} filterValue 
+   */
   addPhotoFilter (filterMethod, filterValue) {
     if (typeof (filterMethod) !== 'string' || filterMethod === '' || typeof (filterValue) !== 'string' || filterValue === '') {
       throw new Error('Invalid filter method or filter value')
@@ -86,9 +101,6 @@ export class PhotoAssistantService {
   }
 
   #addFilter () {
-    console.log(typeof this.#filterMethod)
-    console.log(typeof this.#filterValue)
-
     this.#photoAssistantInstance.chosenFiltersToAdd(this.#filterMethod, this.#filterValue)
   }
 

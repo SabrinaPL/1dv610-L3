@@ -11,18 +11,22 @@ export class PhotoEditorController {
   #filterMethod
   #filterValue
   #photoToBeFiltered
-  #filteredPhoto
 
+  /**
+   * 
+   * @param {InstanceType} photoAssistantServiceInstance
+   * @param {InstanceType} photoEditorViewInstance
+   */
   constructor (photoAssistantServiceInstance, photoEditorViewInstance) {
     this.#photoAssistantServiceInstance = photoAssistantServiceInstance
     this.#photoEditorViewInstance = photoEditorViewInstance
   }
 
+  /**
+   * 
+   * @param {HTMLImageElement} photo - to be edited.
+   */
   addPhotoToBeFiltered (photo) {
-    if (!photo || !(photo instanceof HTMLImageElement)) {
-      throw new Error('Valid photo is required')
-    }
-
     this.#photoToBeFiltered = photo
 
     this.#displayPhotoInEditor()
@@ -32,11 +36,12 @@ export class PhotoEditorController {
     this.#photoEditorViewInstance.displayPhotoEditorModal(this.#photoToBeFiltered)
   }
 
+  /**
+   * 
+   * @param {string} filterMethod 
+   * @param {string} filterValue 
+   */
   addFilter (filterMethod, filterValue) {
-    if (typeof (filterMethod) !== 'string' || filterMethod === '' || typeof (filterValue) !== 'string' || filterValue === '') {
-      throw new Error('Invalid filter method or filter value')
-    }
-
     this.#filterMethod = filterMethod
     this.#filterValue = filterValue
 

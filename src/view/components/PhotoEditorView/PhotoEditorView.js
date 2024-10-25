@@ -128,8 +128,11 @@ class PhotoEditorView extends HTMLElement {
   #photoContainer
   #controllerOrchestratorInstance
   #photoToBeEdited
-  #editedPhoto
 
+  /**
+   * 
+   * @param {InstanceType} controllerOrchestratorInstance 
+   */
   constructor (controllerOrchestratorInstance) {
     super()
     this.attachShadow({ mode: 'open' })
@@ -165,12 +168,14 @@ class PhotoEditorView extends HTMLElement {
   }
 
   #hideModal () {
-    console.log('Hiding modal', this.#photoEditorModal)
-
     this.#photoEditorModal.classList.add('hide-transition')
     this.#photoEditorModal.classList.remove('display-transition')
   }
 
+  /**
+   * 
+   * @param {HTMLImageElement} photo - to be edited.
+   */
   displayPhotoEditorModal (photo) {
     if (!photo || !(photo instanceof HTMLImageElement)) {
       throw new Error('Valid photo is required')

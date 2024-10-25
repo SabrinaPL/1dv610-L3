@@ -17,14 +17,14 @@ export class PhotoGalleryController {
   #photos = []
   #columns
 
+  /**
+   * 
+   * @param {InstanceType} photoAssistantServiceInstance 
+   * @param {InstanceType} uploadServiceInstance 
+   */
   constructor (photoAssistantServiceInstance, uploadServiceInstance) {
-    if (!this.#photoAssistantServiceInstance) {
-      this.#photoAssistantServiceInstance = photoAssistantServiceInstance
-    }
-
-    if (!this.#uploadServiceInstance) {
-      this.#uploadServiceInstance = uploadServiceInstance
-    }
+    this.#photoAssistantServiceInstance = photoAssistantServiceInstance
+    this.#uploadServiceInstance = uploadServiceInstance
 
     window.addEventListener('photosUploaded', () => {
       this.#fetchPhotoData()
@@ -40,6 +40,11 @@ export class PhotoGalleryController {
     })
   }
 
+  /**
+   * 
+   * @param {number} columns 
+   * @param {HTMLElement} photoGalleryElement 
+   */
   setupPhotoGallery (columns, photoGalleryElement) {
     if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement || columns === null || typeof (columns) !== 'number') {
       throw new Error('Valid column value and photo gallery element are required')
@@ -58,7 +63,11 @@ export class PhotoGalleryController {
   }
 
   #fetchPhotoData () {
-    this.#uploadedPhotosData = this.#uploadServiceInstance.getUploadedPhotosData()
+    try {
+      this.#uploadedPhotosData = this.#uploadServiceInstance.getUploadedPhotosData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   #createPhotoFromData () {

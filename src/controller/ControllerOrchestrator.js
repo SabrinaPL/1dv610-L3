@@ -1,5 +1,5 @@
 /**
- * Controller class responsible for delegating tasks to the correct controller class, create an instance of the services and dependency inject those instances to the controller classes (to avoid multiple instantiation of multiple instances).
+ * Controller class responsible for delegating tasks to the correct controller class, create an instance of the services and dependency inject those instances to the controller classes (to avoid multiple instantiation of instances).
  *
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
  *
@@ -22,29 +22,48 @@ export class ControllerOrchestrator {
     this.#uploadServiceInstance = new UploadService()
   }
 
+  /**
+   * 
+   * @param {InstanceType} photoEditorViewInstance 
+   */
   setupPhotoEditorInstances (photoEditorViewInstance) {
     this.#photoEditorViewInstance = photoEditorViewInstance
 
     this.#photoEditorControllerInstance = new PhotoEditorController(this.#photoAssistantServiceInstance, this.#photoEditorViewInstance)
   }
 
+  /**
+   * 
+   * @param {number} columns 
+   * @param {HTMLElement} photoGalleryElement - element to which the gallery will be appended.
+   */
   constructPhotoGallery (columns, photoGalleryElement) {
-    if (typeof (columns) !== 'number' || !columns || !(photoGalleryElement instanceof HTMLElement)) {
-      throw new Error('Valid column value and photo gallery element are required')
-    }
-
+    try {
     this.#photoGalleryControllerInstance = new PhotoGalleryController(this.#photoAssistantServiceInstance, this.#uploadServiceInstance)
+
     this.#photoGalleryControllerInstance.setupPhotoGallery(columns, photoGalleryElement)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   uploadPhotos () {
     this.#photoGalleryControllerInstance.uploadPhotos()
   }
 
+  /**
+   * 
+   * @param {HTMLImageElement} photo 
+   */
   editPhoto (photo) {
     this.#photoEditorControllerInstance.addPhotoToBeFiltered(photo)
   }
 
+  /**
+   * 
+   * @param {string} filterMethod 
+   * @param {string} filterValue 
+   */
   addFilter (filterMethod, filterValue) {
     this.#photoEditorControllerInstance.addFilter(filterMethod, filterValue)
   }

@@ -11,7 +11,6 @@ class App {
 
   constructor () {
     this.#controllerOrchestratorInstance = new ControllerOrchestrator()
-
     this.#photoGalleryViewInstance = new PhotoGalleryView(this.#controllerOrchestratorInstance)
     this.#photoEditorViewInstance = new PhotoEditorView(this.#controllerOrchestratorInstance)
 
@@ -26,7 +25,6 @@ class App {
   }
 
   static main () {
-    console.log('App is starting')
     const app = new App()
     app.start()
   }

@@ -44,6 +44,8 @@ export class UploadService {
         const photosUploadedEvent = new CustomEvent('photosUploaded')
         window.dispatchEvent(photosUploadedEvent)
       })
+    } else {
+      throw new Error('No photos have been uploaded.')
     }
   }
 
@@ -52,8 +54,6 @@ export class UploadService {
       const uploadedPhotosData = [...this.#uploadedPhotosData]
 
       return uploadedPhotosData
-    } else {
-      throw new Error('No photos have been uploaded')
     }
   }
 }

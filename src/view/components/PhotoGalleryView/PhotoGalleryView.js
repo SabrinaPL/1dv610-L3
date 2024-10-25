@@ -46,6 +46,10 @@ class PhotoGalleryView extends HTMLElement {
   #photoUploadButton
   #controllerOrchestratorInstance
 
+  /**
+   * 
+   * @param {InstanceType} controllerOrchestratorInstance 
+   */
   constructor (controllerOrchestratorInstance) {
     super()
     this.attachShadow({ mode: 'open' })
