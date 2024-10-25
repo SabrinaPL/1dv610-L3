@@ -1,6 +1,6 @@
 /**
  * Controller class that receives user input from the PhotoGallery view class and is responsible for delegating and communicating this data to the model class and service classes and for communicating the result back to the view.
- * 
+ *
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
  *
  * @version 1.0.0
@@ -86,4 +86,3 @@ export class PhotoGalleryController {
     this.#photoAssistantServiceInstance.displayGallery(this.#columns, this.#photoGalleryElement)
   }
 }
-

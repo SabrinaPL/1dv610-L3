@@ -1,6 +1,6 @@
 /**
  * Controller class responsible for delegating tasks to the correct controller class, create an instance of the services and dependency inject those instances to the controller classes (to avoid multiple instantiation of multiple instances).
- * 
+ *
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
  *
  * @version 1.0.0
@@ -42,7 +42,7 @@ export class ControllerOrchestrator {
   }
 
   editPhoto (photo) {
-   this.#photoEditorControllerInstance.addPhotoToBeFiltered(photo)
+    this.#photoEditorControllerInstance.addPhotoToBeFiltered(photo)
   }
 
   addFilter (filterMethod, filterValue) {

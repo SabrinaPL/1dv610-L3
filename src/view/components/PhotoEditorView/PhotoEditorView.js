@@ -96,80 +96,75 @@ template.innerHTML = `
       }
     </style>`
 
-  class PhotoEditorView extends HTMLElement {
-    #photoEditorModal
-    #photoContainer
-    #controllerOrchestratorInstance
-    #photoToBeEdited
-    #editedPhoto
+class PhotoEditorView extends HTMLElement {
+  #photoEditorModal
+  #photoContainer
+  #controllerOrchestratorInstance
+  #photoToBeEdited
+  #editedPhoto
 
-    constructor(controllerOrchestratorInstance) {
-      super()
-      this.attachShadow({ mode: 'open' })
-      this.shadowRoot.appendChild(template.content.cloneNode(true))
+  constructor (controllerOrchestratorInstance) {
+    super()
+    this.attachShadow({ mode: 'open' })
+    this.shadowRoot.appendChild(template.content.cloneNode(true))
 
-      this.#controllerOrchestratorInstance = controllerOrchestratorInstance
-    }
-
-    connectedCallback () {
-      this.#photoEditorModal = this.shadowRoot.getElementById('photo-editor-modal')
-      this.#photoContainer = this.shadowRoot.getElementById('photo-container')
-      const exitButton = this.shadowRoot.getElementById('exit-button')
-      const editForm = this.shadowRoot.getElementById('filter-image-form')
-
-      exitButton.addEventListener('click', (event) => {
-        event.preventDefault()
-
-        console.log('hiding modal', this.#photoEditorModal.classList)
-        this.#hideModal()
-        console.log('modal hidden', this.#photoEditorModal.classList)
-      })
-
-      editForm.addEventListener('submit', (event) => {
-        event.preventDefault()
-
-        const filterMethod = this.shadowRoot.querySelector('input[name="filter"]:checked').value
-        const filterValue = this.shadowRoot.getElementById('filterValue').value
-
-        this.#controllerOrchestratorInstance.addFilter(filterMethod, filterValue)
-        this.#controllerOrchestratorInstance.applyFilter()
-
-      })
-    }
-
-    #hideModal () { 
-      console.log('Hiding modal', this.#photoEditorModal);
-
-      this.#photoEditorModal.classList.add('hide-transition')
-      this.#photoEditorModal.classList.remove('display-transition')   
-    }
-
-    displayPhotoEditorModal (photo) {
-      if (!photo || !(photo instanceof HTMLImageElement)) {
-        throw new Error('Valid photo is required')
-      }
-
-      this.#photoToBeEdited = photo
-
-      this.#displayPhotoEditor()
-    }
-
-    #displayPhotoEditor () {
-      this.#displayModal()
-
-      this.#photoContainer.appendChild(this.#photoToBeEdited)
-    }
-
-    #displayModal () {
-      this.#photoEditorModal.classList.remove('hide-transition')
-      this.#photoEditorModal.classList.add('display-transition')
-    }
+    this.#controllerOrchestratorInstance = controllerOrchestratorInstance
   }
 
-  customElements.define('photo-editor-view', PhotoEditorView)
+  connectedCallback () {
+    this.#photoEditorModal = this.shadowRoot.getElementById('photo-editor-modal')
+    this.#photoContainer = this.shadowRoot.getElementById('photo-container')
+    const exitButton = this.shadowRoot.getElementById('exit-button')
+    const editForm = this.shadowRoot.getElementById('filter-image-form')
 
-  export { PhotoEditorView }
+    exitButton.addEventListener('click', (event) => {
+      event.preventDefault()
 
+      console.log('hiding modal', this.#photoEditorModal.classList)
+      this.#hideModal()
+      console.log('modal hidden', this.#photoEditorModal.classList)
+    })
 
+    editForm.addEventListener('submit', (event) => {
+      event.preventDefault()
 
-  
+      const filterMethod = this.shadowRoot.querySelector('input[name="filter"]:checked').value
+      const filterValue = this.shadowRoot.getElementById('filterValue').value
+
+      this.#controllerOrchestratorInstance.addFilter(filterMethod, filterValue)
+      this.#controllerOrchestratorInstance.applyFilter()
+    })
+  }
+
+  #hideModal () {
+    console.log('Hiding modal', this.#photoEditorModal)
+
+    this.#photoEditorModal.classList.add('hide-transition')
+    this.#photoEditorModal.classList.remove('display-transition')
+  }
+
+  displayPhotoEditorModal (photo) {
+    if (!photo || !(photo instanceof HTMLImageElement)) {
+      throw new Error('Valid photo is required')
+    }
+
+    this.#photoToBeEdited = photo
+
+    this.#displayPhotoEditor()
+  }
+
+  #displayPhotoEditor () {
+    this.#displayModal()
+
+    this.#photoContainer.appendChild(this.#photoToBeEdited)
+  }
+
+  #displayModal () {
+    this.#photoEditorModal.classList.remove('hide-transition')
+    this.#photoEditorModal.classList.add('display-transition')
+  }
+}
+
+customElements.define('photo-editor-view', PhotoEditorView)
+
+export { PhotoEditorView }

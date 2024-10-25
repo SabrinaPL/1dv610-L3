@@ -1,6 +1,6 @@
 /**
  * Controller class that receives user input from the PhotoEditor view class and is responsible for delegating and communicating this data to the model and service class and for communicating the result back to the view.
- * 
+ *
  * @author Sabrina Prichard-Lybeck <sp223kz@student.lnu.se>
  *
  * @version 1.0.0
@@ -32,10 +32,6 @@ export class PhotoEditorController {
     this.#photoEditorViewInstance.displayPhotoEditorModal(this.#photoToBeFiltered)
   }
 
-  #displayFilteredPhoto () {
-
-  }
-
   addFilter (filterMethod, filterValue) {
     if (typeof (filterMethod) !== 'string' || filterMethod === '' || typeof (filterValue) !== 'string' || filterValue === '') {
       throw new Error('Invalid filter method or filter value')
@@ -48,8 +44,6 @@ export class PhotoEditorController {
   }
 
   #addPhotoFilter () {
-    console.log(this.#filterMethod, this.#filterValue)
-
     this.#photoAssistantServiceInstance.addPhotoFilter(this.#filterMethod, this.#filterValue)
   }
 
@@ -59,6 +53,10 @@ export class PhotoEditorController {
 
   #applyPhotoFilters () {
     this.#photoAssistantServiceInstance.applyPhotoFilters()
+
+    const canvasContainer = document.getElementById('canvas-container')
+    const canvasId = 'photoCanvas'
+
+    this.#photoAssistantServiceInstance.drawPhotosToCanvas(canvasContainer, canvasId)
   }
 }
-

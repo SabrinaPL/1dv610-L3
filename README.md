@@ -6,3 +6,4 @@
 * Commenting on photos and viewing other users photo galleries.
 * AI photo editing assistant.
 * Displaying the filtered image in the photo gallery, not only in the editor modal.
+* Implement photo canvas functionality to enable edited photos to be saved.
