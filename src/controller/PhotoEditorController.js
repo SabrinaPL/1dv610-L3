@@ -53,10 +53,5 @@ export class PhotoEditorController {
 
   #applyPhotoFilters () {
     this.#photoAssistantServiceInstance.applyPhotoFilters()
-
-    const canvasContainer = document.getElementById('canvas-container')
-    const canvasId = 'photoCanvas'
-
-    this.#photoAssistantServiceInstance.drawPhotosToCanvas(canvasContainer, canvasId)
   }
 }

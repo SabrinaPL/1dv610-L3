@@ -33,6 +33,11 @@ export class PhotoGalleryController {
       this.#sortPhotosAlphabetically()
       this.#displayConstructedGallery()
     })
+
+    window.addEventListener('editingModalClosed', () => {
+      this.#sortPhotosAlphabetically()
+      this.#displayConstructedGallery()
+    })
   }
 
   setupPhotoGallery (columns, photoGalleryElement) {

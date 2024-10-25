@@ -30,7 +30,7 @@ template.innerHTML = `
               <input type="radio" name="filter" id="blur" value="blur">
               <label for="blur" name="filter">Blur</label><br><br>
               <label for="filterValue">Add filter value:</label>
-              <input type="text" name="filterValue" id="filterValue"> % (px for blur)<br><br>
+              <input type="text" name="filterValue" id="filterValue" required> % (px for blur)<br><br>
 
             <div id="photo-container">
             <!-- Photo to be appended here --> 
@@ -94,6 +94,33 @@ template.innerHTML = `
         width: 100%;
         display: block; 
       }
+
+      #displayFilteredImageBtn {
+        font-size: 1.2rem;
+        padding: 10px;
+        background-color: #305cde;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #displayFilteredImageBtn:hover {
+        opacity: 0.8;
+      }
+
+      #exit-button {
+        font-size: 2rem;
+        padding: 10px;
+        color: gray;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+      }
+
+      #exit-button:hover {
+        opacity: 0.8;
+      }
     </style>`
 
 class PhotoEditorView extends HTMLElement {
@@ -120,9 +147,10 @@ class PhotoEditorView extends HTMLElement {
     exitButton.addEventListener('click', (event) => {
       event.preventDefault()
 
-      console.log('hiding modal', this.#photoEditorModal.classList)
       this.#hideModal()
-      console.log('modal hidden', this.#photoEditorModal.classList)
+
+      const editingModalClosed = new CustomEvent('editingModalClosed')
+      window.dispatchEvent(editingModalClosed)
     })
 
     editForm.addEventListener('submit', (event) => {

@@ -26,6 +26,20 @@ template.innerHTML = `
         justify-content: center;
         align-items: center;
       }
+
+      #photo-upload-button {
+        font-size: 1.2rem;
+        padding: 10px;
+        background-color: #305cde;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #photo-upload-button:hover {
+        opacity: 0.8;
+      }
     </style>`
 
 class PhotoGalleryView extends HTMLElement {
