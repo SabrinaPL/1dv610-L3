@@ -1,11 +1,11 @@
 # InstaGallery
 
-InstaGallery is a simple web app, inspired by similar apps such as Instagram, that offers uploading of photos, displaying of uploaded photos in a grid gallery format and filtering of uploaded photos (with a single filter or multiple filters).
+InstaGallery is a simple web app, inspired by similar apps such as Instagram, that offers uploading of photos, displaying of uploaded photos in a grid gallery format in alphabetical order (based on image alt descriptions) and filtering of uploaded photos (with a single or multiple filters).
 
 ![InstaGallery example before](./imageExamples/Before%20filtering.png)
 ![InstaGallery example after](./imageExamples/After%20applied%20filter.png)
 
-This is a very early beta version of InstaGallery which means that only basic functionality has been added and there is also a known bug that the developer team is working to solve for future versions. More features are also planned for future releases:
+This is an early beta version of InstaGallery which means that only basic functionality has been added and there are also known bugs that the developer team is working to solve for future versions. More features are also planned for future releases.
 
 ## Features to be added in future versions
 
@@ -19,7 +19,7 @@ This is a very early beta version of InstaGallery which means that only basic fu
 
 ### Testing
 
-InstaGallery has been tested using manual testing of some common use cases and edge cases. Will also be user tested before release.
+InstaGallery has been tested using manual testing of some common use cases and edge cases locally and in production environment.
 
 ### Bugs
 
