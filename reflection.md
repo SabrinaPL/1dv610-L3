@@ -48,6 +48,8 @@ Vanilla JavaScript, HTML & CSS.
 
 ### Kapitel 2
 
+![Intention-revealing naming example](./imageExamples/Naming%20and%20comments%20refactoring%20example.png)
+
 ### Kapitel 3
 
 ### Kapitel 4
