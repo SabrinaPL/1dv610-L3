@@ -60,8 +60,8 @@ class PhotoGalleryView extends HTMLElement {
     this.#photoUploadButton = this.shadowRoot.getElementById('photo-upload-button')
     const photoGalleryContainer = this.shadowRoot.getElementById('photo-gallery-container')
 
-    // columns will be dynamically fetched from user input later, hardcoded now only for testing purposes.
-    const columns = 3
+    // columns will be dynamically fetched from user input later, hardcoded now only for testing purposes and for now photos will be displayed in a single column (until the bug with photos being displayed in a scattered pattern has been solved).
+    const columns = 1
 
     this.#controllerOrchestratorInstance.constructPhotoGallery(columns, photoGalleryContainer)
 
