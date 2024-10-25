@@ -128,10 +128,14 @@ class PhotoEditorView extends HTMLElement {
   #photoContainer
   #controllerOrchestratorInstance
   #photoToBeEdited
+  #filterValue
+  #filterValueTextField
+  #filterMethod
+  #editForm
 
   /**
-   * 
-   * @param {InstanceType} controllerOrchestratorInstance 
+   *
+   * @param {InstanceType} controllerOrchestratorInstance
    */
   constructor (controllerOrchestratorInstance) {
     super()
@@ -145,7 +149,7 @@ class PhotoEditorView extends HTMLElement {
     this.#photoEditorModal = this.shadowRoot.getElementById('photo-editor-modal')
     this.#photoContainer = this.shadowRoot.getElementById('photo-container')
     const exitButton = this.shadowRoot.getElementById('exit-button')
-    const editForm = this.shadowRoot.getElementById('filter-image-form')
+    this.#editForm = this.shadowRoot.getElementById('filter-image-form')
 
     exitButton.addEventListener('click', (event) => {
       event.preventDefault()
@@ -156,15 +160,31 @@ class PhotoEditorView extends HTMLElement {
       window.dispatchEvent(editingModalClosed)
     })
 
-    editForm.addEventListener('submit', (event) => {
+    this.#editForm.addEventListener('submit', (event) => {
       event.preventDefault()
 
-      const filterMethod = this.shadowRoot.querySelector('input[name="filter"]:checked').value
-      const filterValue = this.shadowRoot.getElementById('filterValue').value
+      this.#filterMethod = this.shadowRoot.querySelector('input[name="filter"]:checked').value
+      this.#filterValue = this.shadowRoot.getElementById('filterValue').value
 
-      this.#controllerOrchestratorInstance.addFilter(filterMethod, filterValue)
-      this.#controllerOrchestratorInstance.applyFilter()
+      try {
+        this.#validateFilterValue()
+      } catch (error) {
+        console.error(error)
+      }
     })
+  }
+
+  #validateFilterValue () {
+    if (isNaN(Number(this.#filterValue))) {
+      alert('Filter value needs to be a number')
+
+      this.#editForm.reset()
+
+      throw new Error('Invalid filter value')
+    } else {
+      this.#controllerOrchestratorInstance.addFilter(this.#filterMethod, this.#filterValue.toString())
+      this.#controllerOrchestratorInstance.applyFilter()
+    }
   }
 
   #hideModal () {
@@ -173,7 +193,7 @@ class PhotoEditorView extends HTMLElement {
   }
 
   /**
-   * 
+   *
    * @param {HTMLImageElement} photo - to be edited.
    */
   displayPhotoEditorModal (photo) {
@@ -187,6 +207,10 @@ class PhotoEditorView extends HTMLElement {
     this.#displayPhotoEditor()
   }
 
+  #scrollToTop () {
+    window.scrollTo(0, 1000)
+  }
+
   #displayPhotoEditor () {
     this.#displayModal()
 
@@ -196,10 +220,6 @@ class PhotoEditorView extends HTMLElement {
   #displayModal () {
     this.#photoEditorModal.classList.remove('hide-transition')
     this.#photoEditorModal.classList.add('display-transition')
-  }
-
-  #scrollToTop () {
-    window.scrollTo(0, 1000)
   }
 }
 

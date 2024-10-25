@@ -33,9 +33,9 @@ export class PhotoAssistantService {
   }
 
   /**
-   * 
-   * @param {HTMLImageElement} photo 
-   * @param {string} photoDescription 
+   *
+   * @param {HTMLImageElement} photo
+   * @param {string} photoDescription
    */
   #validatePhoto (photo, photoDescription) {
     if (!(photo instanceof HTMLImageElement) || !photo || photoDescription === '' || typeof (photoDescription) !== 'string') {
@@ -62,9 +62,9 @@ export class PhotoAssistantService {
   }
 
   /**
-   * 
-   * @param {number} columns 
-   * @param {HTMLElement} galleryElement 
+   *
+   * @param {number} columns
+   * @param {HTMLElement} galleryElement
    */
   #validateGalleryArguments (columns, galleryElement) {
     if (!columns || typeof (columns) !== 'number' || !(galleryElement instanceof HTMLElement)) {
@@ -85,9 +85,9 @@ export class PhotoAssistantService {
   }
 
   /**
-   * 
-   * @param {string} filterMethod 
-   * @param {string} filterValue 
+   *
+   * @param {string} filterMethod
+   * @param {string} filterValue
    */
   addPhotoFilter (filterMethod, filterValue) {
     if (typeof (filterMethod) !== 'string' || filterMethod === '' || typeof (filterValue) !== 'string' || filterValue === '') {

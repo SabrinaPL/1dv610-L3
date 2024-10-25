@@ -17,7 +17,7 @@ export class UploadService {
     this.#photoFiles = await Bytescale.UploadWidget.open({
       apiKey: 'public_12a1z9YCw4rDV8kDMUABfihezDwv',
       maxFileCount: 10,
-      mimeTypes: ["image/*"],
+      mimeTypes: ['image/*']
     })
 
     this.#addUploadedPhotos()

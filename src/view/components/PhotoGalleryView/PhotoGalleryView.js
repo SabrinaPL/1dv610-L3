@@ -47,8 +47,8 @@ class PhotoGalleryView extends HTMLElement {
   #controllerOrchestratorInstance
 
   /**
-   * 
-   * @param {InstanceType} controllerOrchestratorInstance 
+   *
+   * @param {InstanceType} controllerOrchestratorInstance
    */
   constructor (controllerOrchestratorInstance) {
     super()

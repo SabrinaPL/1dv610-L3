@@ -13,7 +13,7 @@ export class PhotoEditorController {
   #photoToBeFiltered
 
   /**
-   * 
+   *
    * @param {InstanceType} photoAssistantServiceInstance
    * @param {InstanceType} photoEditorViewInstance
    */
@@ -23,7 +23,7 @@ export class PhotoEditorController {
   }
 
   /**
-   * 
+   *
    * @param {HTMLImageElement} photo - to be edited.
    */
   addPhotoToBeFiltered (photo) {
@@ -37,9 +37,9 @@ export class PhotoEditorController {
   }
 
   /**
-   * 
-   * @param {string} filterMethod 
-   * @param {string} filterValue 
+   *
+   * @param {string} filterMethod
+   * @param {string} filterValue
    */
   addFilter (filterMethod, filterValue) {
     this.#filterMethod = filterMethod

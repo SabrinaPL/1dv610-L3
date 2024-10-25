@@ -23,8 +23,8 @@ export class ControllerOrchestrator {
   }
 
   /**
-   * 
-   * @param {InstanceType} photoEditorViewInstance 
+   *
+   * @param {InstanceType} photoEditorViewInstance
    */
   setupPhotoEditorInstances (photoEditorViewInstance) {
     this.#photoEditorViewInstance = photoEditorViewInstance
@@ -33,15 +33,15 @@ export class ControllerOrchestrator {
   }
 
   /**
-   * 
-   * @param {number} columns 
+   *
+   * @param {number} columns
    * @param {HTMLElement} photoGalleryElement - element to which the gallery will be appended.
    */
   constructPhotoGallery (columns, photoGalleryElement) {
     try {
-    this.#photoGalleryControllerInstance = new PhotoGalleryController(this.#photoAssistantServiceInstance, this.#uploadServiceInstance)
+      this.#photoGalleryControllerInstance = new PhotoGalleryController(this.#photoAssistantServiceInstance, this.#uploadServiceInstance)
 
-    this.#photoGalleryControllerInstance.setupPhotoGallery(columns, photoGalleryElement)
+      this.#photoGalleryControllerInstance.setupPhotoGallery(columns, photoGalleryElement)
     } catch (error) {
       console.error(error)
     }
@@ -52,17 +52,17 @@ export class ControllerOrchestrator {
   }
 
   /**
-   * 
-   * @param {HTMLImageElement} photo 
+   *
+   * @param {HTMLImageElement} photo
    */
   editPhoto (photo) {
     this.#photoEditorControllerInstance.addPhotoToBeFiltered(photo)
   }
 
   /**
-   * 
-   * @param {string} filterMethod 
-   * @param {string} filterValue 
+   *
+   * @param {string} filterMethod
+   * @param {string} filterValue
    */
   addFilter (filterMethod, filterValue) {
     this.#photoEditorControllerInstance.addFilter(filterMethod, filterValue)

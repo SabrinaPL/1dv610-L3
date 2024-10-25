@@ -18,9 +18,9 @@ export class PhotoGalleryController {
   #columns
 
   /**
-   * 
-   * @param {InstanceType} photoAssistantServiceInstance 
-   * @param {InstanceType} uploadServiceInstance 
+   *
+   * @param {InstanceType} photoAssistantServiceInstance
+   * @param {InstanceType} uploadServiceInstance
    */
   constructor (photoAssistantServiceInstance, uploadServiceInstance) {
     this.#photoAssistantServiceInstance = photoAssistantServiceInstance
@@ -41,9 +41,9 @@ export class PhotoGalleryController {
   }
 
   /**
-   * 
-   * @param {number} columns 
-   * @param {HTMLElement} photoGalleryElement 
+   *
+   * @param {number} columns
+   * @param {HTMLElement} photoGalleryElement
    */
   setupPhotoGallery (columns, photoGalleryElement) {
     if (!(photoGalleryElement instanceof HTMLElement) || !photoGalleryElement || columns === null || typeof (columns) !== 'number') {
@@ -92,11 +92,11 @@ export class PhotoGalleryController {
     })
   }
 
-  #sortPhotosAlphabetically () {
-    this.#photoAssistantServiceInstance.sortPhotosAlphabetically()
-  }
-
   #displayConstructedGallery () {
     this.#photoAssistantServiceInstance.displayGallery(this.#columns, this.#photoGalleryElement)
+  }
+
+  #sortPhotosAlphabetically () {
+    this.#photoAssistantServiceInstance.sortPhotosAlphabetically()
   }
 }
