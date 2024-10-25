@@ -7,7 +7,7 @@ import { ControllerOrchestrator } from '../../../controller/ControllerOrchestrat
 
 const template = document.createElement('template')
 template.innerHTML = `
-    <div class="photo-editor">
+    <div id="photo-editor-modal">
       <div id="photo-editor-container">
         <div id="choice-menu-container">
           <form id="filter-image-form">
@@ -35,11 +35,10 @@ template.innerHTML = `
               <input type="text" name="filterValue" id="filterValue"> % (px for blur)<br><br>
 
             <button type="submit" id="displayFilteredImageBtn">Display</button>
-
-          <div id="photo-container">
-            <!-- Photo to be appended here --> 
-          </div>
         </form>
+        <div id="photo-container">
+            <!-- Photo to be appended here --> 
+        </div>
       </div>
     </div>
   
@@ -64,19 +63,32 @@ template.innerHTML = `
         margin-right: 5%;
       }
 
-      .photo-editor {
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
+      #photo-editor-modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
       }
 
       .hide-transition {
         opacity: 0;
+        visibility: hidden;
         pointer-events: none;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
       }
 
       .display-transition {
        opacity: 1;
+       visibility: visible;
        pointer-events: all; 
+       transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+      }
+
+      #photo-container img {
+        width: 100%;
+        display: block; 
       }
     </style>`
 
@@ -89,17 +101,20 @@ template.innerHTML = `
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(template.content.cloneNode(true))
 
-      this.#photoEditorModal = this.shadowRoot.querySelector('.photo-editor')
-
+      this.#photoEditorModal = this.shadowRoot.getElementById('photo-editor-modal')
       this.#photoContainer = this.shadowRoot.getElementById('photo-container')
-      const exitButton = this.shadowRoot.getElementById('exit-button-container')
+      const exitButton = this.shadowRoot.getElementById('exit-button')
 
       exitButton.addEventListener('click', (event) => {
         event.preventDefault()
 
-        this.#photoEditorModal.classList.add('hide-transition')
-        this.#photoEditorModal.classList.remove('display-transition')
+        this.#hideModal()
       })
+    }
+
+    #hideModal () { 
+      this.#photoEditorModal.classList.add('hide-transition')
+      this.#photoEditorModal.classList.remove('display-transition')   
     }
 
     displayPhotoEditor (photo) {
@@ -107,11 +122,21 @@ template.innerHTML = `
         throw new Error('Valid photo is required')
       }
 
-      this.#photoEditorModal.classList.add('display-transition')
-      this.#photoEditorModal.classList.remove('hide-transition')
+      const displayModalEvent = new CustomEvent('display-modal')
+      this.dispatchEvent(displayModalEvent)
 
-      console.log('appending photo to: ', this.#photoContainer)
+      this.#displayModal()
+
       this.#photoContainer.appendChild(photo)
+    }
+
+    #displayModal () {
+      console.log(this.#photoEditorModal)
+
+      this.#photoEditorModal.classList.remove('hide-transition')
+      this.#photoEditorModal.classList.add('display-transition')
+
+      console.log(this.#photoEditorModal.classList)
     }
   }
 
