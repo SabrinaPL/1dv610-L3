@@ -86,6 +86,14 @@ Här i L3 har jag lyckats bättre både med "Small", "Do one thing" och även "O
 
 Något jag har lagt märke till i den här kursen är att jag har blivit mycket mer restriktiv med att lägga till kommentarer till koden (då jag anstränger mig mer för att försöka göra koden självbeskrivande genom bl. a. bättre namngivning), kanske så pass restriktiv att det svängt lite för mycket åt andra hållet. Hade några kommentarer i L2 som jag städade bort i refaktoreringsmomentet men som jag tänker ändå tillförde värde.
 
+![Explanation of intent kommentarsexempel](./imageExamples/Intent%20revealing%20comment%20L2.png)
+
+Ovan är ett exempel på en kommentar som jag städade bort men som jag skulle argumentera var en "Explanation of intent"-kommentar (varför jag tänker att det är nödvändigt att rita upp bilden på ett canvaselement - för att tillföra sparfunktionalitet) och därmed också tillförde ett värde.
+
+I L3:an har jag varit väldigt sparsmakad med kommenterare redan från början, har därför svårt att visa något tydligt exempel på kommentarer, men JSDoc-kommentarer har jag lagt till de publika metoderna som tar emot argument (med fokus på att ange parametervärden eftersom att vanilla JS saknar typsäkerhet så blir dessa kommentarer särskilt viktiga):
+
+![JSDoc exempel](./imageExamples/JSDoc%20exempel%20L3.png)
+
 ### Kapitel 5
 
 ### Kapitel 6
@@ -102,4 +110,4 @@ Något jag har lagt märke till i den här kursen är att jag har blivit mycket 
 
 ## Övrigt
 
-Tyvärr hann jag inte realisera visionen fullt ut då jag fick skära i kraven och minska ned på funktionalitet för att hinna bli klar med uppgiften i tid till deadline. Hann inte heller åtgärda de två buggar som jag upptäckte vid testning (men att upptäcka buggar vid testning är ett bättre tecken än att inte upptäcka några buggar alls :). Jag tänker dock att det här är version 1 och att det inte är någon nackdel att det finns en vision att jobba vidare med att kunna realisera med kommande versioner.
+Tyvärr hann jag inte realisera visionen fullt ut då jag fick skära i kraven och minska ned rätt mycket på funktionaliteten för att hinna bli klar med uppgiften i tid till deadline. Jag tänker dock att det här är version 1 och att det inte är någon nackdel att det finns en vision att jobba vidare med att kunna realisera med kommande versioner. Hann inte heller åtgärda två av de tre buggar som jag upptäckte vid testning (men att upptäcka buggar vid testning är ett bättre tecken än att inte upptäcka några buggar alls :).
