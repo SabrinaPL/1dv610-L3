@@ -183,6 +183,7 @@ class PhotoEditorView extends HTMLElement {
 
     this.#photoToBeEdited = photo
 
+    this.#scrollToTop()
     this.#displayPhotoEditor()
   }
 
@@ -195,6 +196,10 @@ class PhotoEditorView extends HTMLElement {
   #displayModal () {
     this.#photoEditorModal.classList.remove('hide-transition')
     this.#photoEditorModal.classList.add('display-transition')
+  }
+
+  #scrollToTop () {
+    window.scrollTo(0, 1000)
   }
 }
 
