@@ -1,6 +1,6 @@
 # Test report
 
-The PhotoAssistant library has been tested with automatic unit tests (Jest) and also in a simple test application environment (found in the test-app folder) in the browser.
+InstaGallery web app has been tested manually both locally (in browser with Vite) and in production environment (Netflify).
 
 ## System version
 
