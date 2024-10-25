@@ -94,19 +94,85 @@ I L3:an har jag varit väldigt sparsmakad med kommenterare redan från början, 
 
 ![JSDoc exempel](./imageExamples/JSDoc%20exempel%20L3.png)
 
+Det finns en meme för programmerare som direkt dök upp i minnet när vi fick lära oss om Clean Code och kommentarer  (som hänger med mig nu varje gång jag kodar): en bild på en stoppskylt med en skylt ovanför, med en pil som pekar nedåt, där det står "This is a stop sign".
+
 ### Kapitel 5
+
+Jag försöker tänka på att göra kod så läsbar som möjligt (går själv lätt vilse i kod så jag vill inte göra det svårare än vad det behöver vara att hitta rätt) så principer såsom "Vertical openness between concepts" kändes inte främmande, även om det är bra att påminna sig själv om vilken skillnad det kan göra för läsbarheten:
+
+![Formattering exempel](./imageExamples/Formattering%20exempel%20L2.png)
+
+![Formattering exempel](./imageExamples/Formattering%20exempel%202.png)
+
+Min största take away vad gäller formatteringsprinciperna är "Dependent functions" och den upplever jag har gjort stor skillnad (till det bättre) i min kod:
+
+![Dependent functions exempel](./imageExamples/Dependent%20functions%20exempel.png)
+
+Något så simpelt som jag upplever verkligen underlättar i att "hänga med i flödet" och gör det lättare att hitta rätt i koden (särskilt skönt när man som jag lätt går vilse annars).
 
 ### Kapitel 6
 
+Det här är ett kapitel som jag känner att jag har lite svårare att förstå än de tidigare och några av koncepten ur det här kapitlet behöver lite mer tid att fullt ut landa hos mig men något jag reagerade på var när vi lärde oss om "Train wreck"-principen. Brukar själv inte skriva train wrecks (kan säkert ha hänt någon gång, men inget som brukar hända ofta i alla fall) men har sett många train wrecks även i mer senior kod (och då blivit lite imponerad, nu vet jag bättre).
+
+Om jag har förstått det rätt (och rätta mig gärna om jag har fel) så skulle följande vara ett exempel på en datastruktur då den exponerar data för omvärlden men inte beteende (om den inte räknas som en hybrid då den agerar på arrayen innan den returnas?):
+
+![Data structure exempel](./imageExamples/Kapitel%205%20exempel.png)
+
+Medan det här är ett exempel på ett objekt där datan döljs under lager av abstraktion och inkapsling och där även beteendet döljs (både data och beteende är abstraherat i det här exemplet - vi vet att bilder sorteras i alfabetisk ordning men det avslöjas inte hur det går till - räknas det då ändå som ett objekt? Har lite svårt just nu att hitta ett exempel på objekt där beteende avslöjas då jag har försökt tänka abstraktion i flera lager, men det finns säkert exempel både på objekt och hybrider i min kod):
+
+![Object exempel](./imageExamples/Kapitel%205%20exempel2.png)
+
 ### Kapitel 7
+
+Kapitlet som handlar om felhantering har framförallt påverkat mig genom att jag tänker mer på i vilket lager av applikationen som kastade undantag bör fångas (och såklart att jag kastar undantagen, som enligt "Use exceptions rather than return codes"-principen):
+
+![Object exempel](./imageExamples/Undantag%20try%20catch%20exempel.png)
+
+![Object exempel](./imageExamples/Kasta%20undantag%20exempel.png)
+
+Däremot så vet jag med mig själv att jag kan slarva med felhanteringen och det är lätt något som jag glömmer bort framförallt i början (när jag är fullt fokuserad på att lösa problemet) och får gå tillbaka och lägga till i efterhand, vilket innebär större risk att missa att t. ex. lägga till ett try/catch-block. Därför är principen "Write your try-catch-finally statement first" min största take away från det här kapitlet (i vad jag behöver träna ännu mer på).
 
 ### Kapitel 8
 
+Boundries är något jag framförallt tog med mig vid utvecklandet av L2-modulen. Jag försökte tänka på att leverera ett lättförståeligt interface där det som användaren faktiskt behöver veta går att hitta i interfacet och valde medvetet att bara exponera photoAssistantOrchestrator för att ge användaren en tydlig ingångsport till applikationen (utan att behöva ge tillgång till övriga delar av modulen som istället abstraherades bort och inkapslades):
+
+![Boundries exempel](./imageExamples/Boundries%20exempel.png)
+
 ### Kapitel 9
+
+De tre TDD-reglerna är något jag särskilt tar med mig från kapitlet som rör testning. Har inte skrivit någon enorm mängd enhetstester såhär kort tid in i utvecklarkarriären men om manuella tester skulle ingå i TDD-regeln (det kanske det gör?) så tänker jag att det oftast är så att testfall failar någon (ofta några) gånger innan de går igenom, av egen erfarenhet, däremot så sker mycket av den testningen omedvetet (och räknas alltså inte in som strukturerad testning). Jag får, även här, stanna upp och påminna mig själv om att planera testningen först när jag redan har hunnit med några varv av manuell testning av sånt som vore bra att göra som mer strukturerad testning.
+
+Jag försöker ha med mig principen "Keeping tests clean" när jag skriver enhetstester då jag vill att även den koden ska vara lätt att förstå, ha god läsbarhet osv och använder mig av "Build-Operate-Check"-pattern:
+
+![Unit tests exempel](./imageExamples/Unit%20tests%20exempel.png)
 
 ### Kapitel 10
 
+Jag försöker, precis som med funktioner, att ha med mig "Single responsibility"-principen och "Small Classes" när jag designar och delegerar ansvar till klasser. Trots det så är det lätt att falla in i fällan att ge en klass för mycket ansvar, samtidigt som en klass kan vara relativt stor men ändå ha ett tydligt ansvarsområde.
+
+Här är ett exempel på en liten klass:
+
+![Small Class exempel](./imageExamples/Small%20class%20exempel.png)
+
+Det är tydligt vad denna klass gör och vad den har för ansvarsområde. Den skapar canvas element, inget mer och inget mindre.
+
+Medan detta är ett exempel på en (i alla fall jämfört med de små klasserna) relativt stor klass:
+
+![Large Class exempel](./imageExamples/Large%20class%20exempel.png)
+
+Trots sin storlek så vill jag ändå hävda att även denna klass följer SRP. Det är en view-klass som har som ansvar att ta emot indata från användaren och ta emot utdata från controllers inom systemet för att rendera det tillbaka till användaren.
+
+Jag har även, framförallt i L3an, tänkt aktivt på att försöka följa "Organizing for change"-principen genom att "bädda för" att systemet kommer att förändras kontinuerligt (såsom med alla system) och försökt göra appen mindre sårbar för såna förändringar. Detta genom att lägga till service-klasser som sköter kommunikationen med de två lib som jag importerat till L3 (min egen Photo Assistant-modul och @bytescale upload-widget). Detta innebär att appen kommer att ha lättare att hantera förändringar (såsom om någon lib skulle bli utdaterad och behöva bytas) utan att behöva bygga om hela systemet:
+
+![Organizing for change exempel](./imageExamples/Organizing%20for%20change%20exempel.png)
+
 ### Kapitel 11
+
+Den princip ur Systems-principerna som jag främst tagit till mig av och även implementerat i L3 (och som jag önskar att jag hade använt mig av mycket tidigare, då den tidigare applikationsdesignen ledde mig till många hinder på vägen som jag hade sluppit om jag tänkt på denna princip redan från start) är "Separation of Main". Jag hamnade i multipla instansieringar av klasser-träsket (vilket såklart ledde till problem med att bibehålla state och liknande och till mycket onödig tid på felsökning som jag hade kunnat bespara mig själv från början). Försökte först att lösa problemet genom att skapa en orchestratorsklass (controller) som skötte instantieringen och dependency-injectade instanserna till de andra controllerklasserna, försökte även med events och eventlyssnare, men efter att ha gått i vad som kändes som cirklar så var "Separation of main"-principen räddningen (försökte tänka mer som i Java):
+
+![Separation of main exempel](./imageExamples/Separation%20of%20main%20exempel.png)
+
+Men med en lärdom rikare (man lär sig trots allt bäst från sina misstag) så kommer den här Clean Code-principen att vara en av de principer jag kommer minnas för en lång tid framöver.
 
 ## Övrigt
 
