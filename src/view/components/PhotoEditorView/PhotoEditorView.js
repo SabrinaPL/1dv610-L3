@@ -3,8 +3,6 @@
  *
  * @version 1.0.0
  */
-import { ControllerOrchestrator } from '../../../controller/ControllerOrchestrator.js'
-
 const template = document.createElement('template')
 template.innerHTML = `
     <div id="photo-editor-modal">
@@ -95,12 +93,17 @@ template.innerHTML = `
   class PhotoEditorView extends HTMLElement {
     #photoEditorModal
     #photoContainer
+    #controllerOrchestratorInstance
 
-    constructor() {
+    constructor(controllerOrchestratorInstance) {
       super()
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(template.content.cloneNode(true))
 
+      this.#controllerOrchestratorInstance = controllerOrchestratorInstance
+    }
+
+    connectedCallback () {
       this.#photoEditorModal = this.shadowRoot.getElementById('photo-editor-modal')
       this.#photoContainer = this.shadowRoot.getElementById('photo-container')
       const exitButton = this.shadowRoot.getElementById('exit-button')
@@ -108,22 +111,29 @@ template.innerHTML = `
       exitButton.addEventListener('click', (event) => {
         event.preventDefault()
 
+        console.log('hiding modal', this.#photoEditorModal.classList)
         this.#hideModal()
+        console.log('modal hidden', this.#photoEditorModal.classList)
       })
     }
 
     #hideModal () { 
+      console.log('Hiding modal', this.#photoEditorModal);
+
       this.#photoEditorModal.classList.add('hide-transition')
       this.#photoEditorModal.classList.remove('display-transition')   
     }
 
-    displayPhotoEditor (photo) {
+    displayPhotoEditorModal (photo) {
+      console.log('Is editor in DOM:', document.body.contains(this));
+
+      this.#displayPhotoEditor(photo)
+    }
+
+    #displayPhotoEditor (photo) {
       if (!photo || !(photo instanceof HTMLImageElement)) {
         throw new Error('Valid photo is required')
       }
-
-      const displayModalEvent = new CustomEvent('display-modal')
-      this.dispatchEvent(displayModalEvent)
 
       this.#displayModal()
 
@@ -131,12 +141,10 @@ template.innerHTML = `
     }
 
     #displayModal () {
-      console.log(this.#photoEditorModal)
+      console.log('displaying modal')
 
       this.#photoEditorModal.classList.remove('hide-transition')
       this.#photoEditorModal.classList.add('display-transition')
-
-      console.log(this.#photoEditorModal.classList)
     }
   }
 

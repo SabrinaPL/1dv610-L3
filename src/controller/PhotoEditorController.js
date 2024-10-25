@@ -5,8 +5,6 @@
  *
  * @version 1.0.0
  */
-import { PhotoEditorView } from '../view/components/PhotoEditorView/PhotoEditorView.js'
-
 export class PhotoEditorController {
   #photoAssistantServiceInstance
   #photoEditorViewInstance
@@ -15,12 +13,15 @@ export class PhotoEditorController {
   #photoToBeFiltered
   #filteredPhoto
 
-  constructor (photoAssistantServiceInstance) {
+  constructor (photoAssistantServiceInstance, photoEditorViewInstance) {
     if (!this.#photoAssistantServiceInstance) {
       this.#photoAssistantServiceInstance = photoAssistantServiceInstance
     }
 
-    this.#photoEditorViewInstance = new PhotoEditorView()
+    if (!this.#photoEditorViewInstance) {
+      console.log('photoEditorViewInstance', photoEditorViewInstance)
+      this.#photoEditorViewInstance = photoEditorViewInstance
+    }
   }
 
   addPhotoToBeFiltered (photo) {
@@ -29,11 +30,12 @@ export class PhotoEditorController {
     }
 
     this.#photoToBeFiltered = photo
-    this.#displayPhotoToBeFiltered()
+
+    this.#displayPhotoInEditor()
   }
 
-  #displayPhotoToBeFiltered () {
-    this.#photoEditorViewInstance.displayPhotoEditor(this.#photoToBeFiltered)
+  #displayPhotoInEditor () {
+    this.#photoEditorViewInstance.displayPhotoEditorModal(this.#photoToBeFiltered)
   }
 
   #displayFilteredPhoto () {

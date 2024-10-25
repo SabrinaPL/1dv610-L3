@@ -15,20 +15,17 @@ export class ControllerOrchestrator {
   #uploadServiceInstance
   #photoGalleryControllerInstance
   #photoEditorControllerInstance
+  #photoEditorViewInstance
 
   constructor () {
-    // Control statements to avoid multiple instantiations.
-    if (!this.#photoAssistantServiceInstance) {
-      this.#photoAssistantServiceInstance = new PhotoAssistantService()
-    } 
-    
-    if (!this.#uploadServiceInstance) {
-      this.#uploadServiceInstance = new UploadService()   
-    }
+    this.#photoAssistantServiceInstance = new PhotoAssistantService()
+    this.#uploadServiceInstance = new UploadService()
+  }
 
-    if (!this.#photoEditorControllerInstance) {
-      this.#photoEditorControllerInstance = new PhotoEditorController(this.#photoAssistantServiceInstance)
-    }
+  setupPhotoEditorInstances (photoEditorViewInstance) {
+    this.#photoEditorViewInstance = photoEditorViewInstance
+
+    this.#photoEditorControllerInstance = new PhotoEditorController(this.#photoAssistantServiceInstance, this.#photoEditorViewInstance)
   }
 
   constructPhotoGallery (columns, photoGalleryElement) {

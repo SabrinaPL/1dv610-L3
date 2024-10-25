@@ -3,8 +3,6 @@
  *
  * @version 1.0.0
  */
-import { ControllerOrchestrator } from '../../../controller/ControllerOrchestrator.js'
-
 const template = document.createElement('template')
 template.innerHTML = `
     <div class="photo-gallery">
@@ -29,17 +27,16 @@ template.innerHTML = `
       }
     </style>`
 
-customElements.define('photo-gallery-view',
-  class extends HTMLElement {
+  class PhotoGalleryView extends HTMLElement {
     #photoUploadButton
-    #controllerOrchestrator
+    #controllerOrchestratorInstance
 
-    constructor () {
+    constructor (controllerOrchestratorInstance) {
       super()
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(template.content.cloneNode(true))
 
-      this.#controllerOrchestrator = new ControllerOrchestrator()
+      this.#controllerOrchestratorInstance = controllerOrchestratorInstance
 
       this.#photoUploadButton = this.shadowRoot.getElementById('photo-upload-button')
       const photoGalleryContainer = this.shadowRoot.getElementById('photo-gallery-container')
@@ -47,7 +44,7 @@ customElements.define('photo-gallery-view',
       // columns will be dynamically fetched from user input later, hardcoded now only for testing purposes.
       const columns = 3
 
-      this.#controllerOrchestrator.constructPhotoGallery(columns, photoGalleryContainer)
+      this.#controllerOrchestratorInstance.constructPhotoGallery(columns, photoGalleryContainer)
 
       this.#photoUploadButton.addEventListener('click', () => {
         this.#uploadPhotos()
@@ -58,14 +55,18 @@ customElements.define('photo-gallery-view',
 
         imageElements.forEach(imageElement => {
           imageElement.addEventListener('click', () => {
-            this.#controllerOrchestrator.editPhoto(imageElement)
+            this.#controllerOrchestratorInstance.editPhoto(imageElement)
         })
       })
     })
   }
 
   #uploadPhotos () {
-    this.#controllerOrchestrator.uploadPhotos()
+    this.#controllerOrchestratorInstance.uploadPhotos()
   }
-})
+}
+
+customElements.define('photo-gallery-view', PhotoGalleryView)
+
+export { PhotoGalleryView }
 
